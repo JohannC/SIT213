@@ -5,26 +5,12 @@ package transmetteurs;
  */
 
 import destinations.DestinationInterface;
+import excpetion.ArgumentsException;
 import information.Information;
 import information.InformationNonConforme;
 
 public class EmetteurNRZ extends Transcepteur<Boolean, Float> {
 	
-	public EmetteurNRZ() {
-		super();
-	}	
-	
-	public EmetteurNRZ(float min, float max) throws InformationNonConforme {
-		super(min, max);
-	}
-	
-	public EmetteurNRZ(int nbEchantillon) throws InformationNonConforme {
-		super(nbEchantillon);
-	}
-	
-	public EmetteurNRZ(float min, float max, int nbEchantillon) throws InformationNonConforme {
-		super(min, max, nbEchantillon);
-	}
 
 	@Override
 	public void recevoir(Information<Boolean> information) throws InformationNonConforme {

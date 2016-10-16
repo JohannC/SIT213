@@ -31,6 +31,8 @@ public class RecepteurRZTest {
 		
 		source.connecter(emeteur);
 		source.emettre();
+		emeteur.connecter(transmetteur);
+		
 		transmetteur.connecter(recepteur);
 		transmetteur.emettre();
 	}

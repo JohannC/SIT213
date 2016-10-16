@@ -173,15 +173,13 @@ public class Simulateur {
 						throw new ArgumentsException("Valeur du parametre -mess invalide : " + nbBitsMess);
 				} else
 					throw new ArgumentsException("Valeur du parametre -mess invalide : " + args[i]);
-<<<<<<< HEAD
+
 			} else if (args[i].matches("-nbEch")) {
 				i++;
 				if (args[i].matches("[^-][1-9][0-9]*"))
 					nbE = new Integer(args[i]);
 				else
 					throw new ArgumentsException("Le nombre d'échantillons doit être une valeur entière positive");
-			} else
-=======
 			} 
 			else if (args[i].matches("-form")) {
 				i++;
@@ -193,7 +191,6 @@ public class Simulateur {
 			}
 
 			else
->>>>>>> 25e003b2c187c4f81fc21895ffeac72d144681a5
 				throw new ArgumentsException("Option invalide :" + args[i]);
 		}
 	}
