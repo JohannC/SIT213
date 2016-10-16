@@ -25,7 +25,12 @@ public class RecepteurRZ extends Transcepteur<Float, Boolean> {
 	
 	private Information<Boolean> decodageRZ() {
 		Information<Boolean> signalRZ = new Information<Boolean>();
-		
+		int i = 0;
+		while (i < informationRecue.nbElements()) {
+			float moyenne = 0;
+			int debut = nbEchantillon/3;
+			int fin = debut * 2;
+		}
 		return signalRZ;
 	}
 }
