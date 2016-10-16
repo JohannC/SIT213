@@ -3,7 +3,7 @@ package transmetteurs;
 import information.Information;
 import information.InformationNonConforme;
 
-public class EmetteurNRZ extends Emetteur<Boolean, Float> {
+public class EmetteurNRZ extends Transcepteur<Boolean, Float> {
 
 	@Override
 	public void recevoir(Information<Boolean> information) throws InformationNonConforme {

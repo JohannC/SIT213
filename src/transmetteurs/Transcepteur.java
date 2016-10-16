@@ -1,6 +1,6 @@
 package transmetteurs;
 
-public abstract class Emetteur<R, E> extends Transmetteur<R, E> {
+public abstract class Transcepteur<R, E> extends Transmetteur<R, E> {
 	protected int nbEchantillon;
 	protected float min;
 	protected float max;
@@ -9,25 +9,25 @@ public abstract class Emetteur<R, E> extends Transmetteur<R, E> {
 	private static float DEFAULT_MIN = 0.0f;
 	private static float DEFAULT_MAX = 1.0f;
 
-	public Emetteur() {
+	public Transcepteur() {
 		this.min = DEFAULT_MIN;
 		this.max = DEFAULT_MAX;
 		this.nbEchantillon = DEFAULT_NB_ECHANTILLON;
 	}
 
-	public Emetteur(int nbEchantillon) {
+	public Transcepteur(int nbEchantillon) {
 		this.min = DEFAULT_MIN;
 		this.max = DEFAULT_MAX;
 		this.nbEchantillon = nbEchantillon;
 	}
 
-	public Emetteur(float min, float max) {
+	public Transcepteur(float min, float max) {
 		this.min = min;
 		this.max = max;
 		this.nbEchantillon = DEFAULT_NB_ECHANTILLON;
 	}
 
-	public Emetteur(float min, float max, int nbEchantillon) {
+	public Transcepteur(float min, float max, int nbEchantillon) {
 		this.min = min;
 		this.max = max;
 		this.nbEchantillon = nbEchantillon;

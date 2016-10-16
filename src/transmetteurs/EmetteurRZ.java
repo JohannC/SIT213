@@ -8,7 +8,7 @@ import information.InformationNonConforme;
  * La classe EmetteurRZ permet d'envoyer un signal numérique RZ (Return-to-Zero)
  */
 
-public class EmetteurRZ extends Emetteur<Boolean, Float> {
+public class EmetteurRZ extends Transcepteur<Boolean, Float> {
 	/**
 	 * Méthode permettant de reçevoir une information
 	 * @param information l'information reçue
