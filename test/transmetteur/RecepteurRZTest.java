@@ -7,40 +7,56 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-import sources.SourceFixe;
-import transmetteurs.EmetteurRZ;
+import information.Information;
 import transmetteurs.RecepteurRZ;
-import transmetteurs.TransmetteurAnalogiqueParfait;
 
 public class RecepteurRZTest {
 
-	private SourceFixe source;
-	private EmetteurRZ emeteur;
-	private TransmetteurAnalogiqueParfait transmetteur;
 	private RecepteurRZ recepteur;
+	private Information<Float> information;
 
 	@Rule
 	public ErrorCollector collector = new ErrorCollector();
 
 	@Before
 	public void setUp() throws Exception {
-		source = new SourceFixe("110110001");
-		emeteur = new EmetteurRZ();
-		transmetteur = new TransmetteurAnalogiqueParfait();
+		
+		// Création de l'information test à envoyé au récepteur RZ
+		information = new Information<Float>();
+		
+		//Premier symbole : 1
+		for (int i=0; i<10; i++)
+			information.add(0f);
+		for (int i=0; i<10; i++)
+			information.add(1f);
+		for (int i=0; i<10; i++)
+			information.add(0f);
+		
+		//Second symbole : 0
+		for (int i=0; i<10; i++)
+			information.add(0f);
+		for (int i=0; i<10; i++)
+			information.add(0f);
+		for (int i=0; i<10; i++)
+			information.add(0f);
+		
 		recepteur = new RecepteurRZ();
-		
-		source.connecter(emeteur);
-		source.emettre();
-		emeteur.connecter(transmetteur);
-		
-		transmetteur.connecter(recepteur);
-		transmetteur.emettre();
+		recepteur.recevoir(information);
 	}
 
 	@Test
 	public void test() {
-		// Vérification de la bonne réception de l'information
-		collector.checkThat(transmetteur.getInformationEmise(), is(recepteur.getInformationRecue()));
-
+		// Vérification de la bonne réception du premier symbole
+		collector.checkThat(recepteur.getInformationRecue().iemeElement(5), is(0f));
+		collector.checkThat(recepteur.getInformationRecue().iemeElement(15), is(1f));
+		collector.checkThat(recepteur.getInformationRecue().iemeElement(25), is(0f));
+		// Vérification de la bonne réception du second symbole
+		collector.checkThat(recepteur.getInformationRecue().iemeElement(35), is(0f));
+		collector.checkThat(recepteur.getInformationRecue().iemeElement(45), is(0f));
+		collector.checkThat(recepteur.getInformationRecue().iemeElement(55), is(0f));
+		
+		// Vérification de la bonne émission de l'information
+		collector.checkThat(recepteur.getInformationEmise().iemeElement(0), is(true));
+		collector.checkThat(recepteur.getInformationEmise().iemeElement(1), is(false));
 	}
 }
