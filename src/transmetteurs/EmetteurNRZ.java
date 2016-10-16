@@ -5,6 +5,7 @@ package transmetteurs;
  */
 
 import destinations.DestinationInterface;
+import excpetion.ArgumentsException;
 import information.Information;
 import information.InformationNonConforme;
 
@@ -35,10 +36,11 @@ public class EmetteurNRZ extends Transcepteur<Boolean, Float> {
 	 * @param min : l'amplitude minimale du signal 
 	 * @param max : l'amplitude maximale du signal 
 	 * @throws InformationNonConforme : Exception levée dans le cas où on reçoit une information erronée
+	 * @throws ArgumentsException 
 	 * 
 	 */
 	
-	public EmetteurNRZ(float min, float max) throws InformationNonConforme {
+	public EmetteurNRZ(float min, float max) throws ArgumentsException {
 		super(min, max);
 	}
 	
@@ -47,10 +49,11 @@ public class EmetteurNRZ extends Transcepteur<Boolean, Float> {
 	 * 
 	 * @param nbEchantillon : Nombre d'échantillons 
 	 * @throws InformationNonConforme : Exception levée dans le cas où on reçoit une information erronée
+	 * @throws ArgumentsException 
 	 * 
 	 */
 	
-	public EmetteurNRZ(int nbEchantillon) throws InformationNonConforme {
+	public EmetteurNRZ(int nbEchantillon) throws ArgumentsException {
 		super(nbEchantillon);
 	}
 	
@@ -62,10 +65,11 @@ public class EmetteurNRZ extends Transcepteur<Boolean, Float> {
 	 * @param max : l'amplitude maximale du signal 
 	 * @param nbEchantillon : Nombre d'échantillons 
 	 * @throws InformationNonConforme : Exception levée dans le cas où on reçoit une information erronée
+	 * @throws ArgumentsException 
 	 * 
 	 */
 	
-	public EmetteurNRZ(float min, float max, int nbEchantillon) throws InformationNonConforme {
+	public EmetteurNRZ(float min, float max, int nbEchantillon) throws ArgumentsException {
 		super(min, max, nbEchantillon);
 	}
 	

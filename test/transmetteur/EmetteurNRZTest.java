@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
+import excpetion.ArgumentsException;
 import transmetteurs.EmetteurNRZ;
 
 /**
@@ -61,7 +62,7 @@ public class EmetteurNRZTest {
 	
 	
 	@Test
-	public void test_NbEchDefault() throws InformationNonConforme {
+	public void test_NbEchDefault() throws InformationNonConforme, ArgumentsException {
 		
 		Information<Boolean> informationTestRecue = new Information<Boolean>();
 		informationTestRecue.add(false);
@@ -82,7 +83,7 @@ public class EmetteurNRZTest {
 	}
 	
 	@Test	
-	public void test_MaxMinDefault() throws InformationNonConforme {
+	public void test_MaxMinDefault() throws InformationNonConforme, ArgumentsException {
 		
 		Information<Boolean> informationTestRecue = new Information<Boolean>();
 		informationTestRecue.add(false);
@@ -103,7 +104,7 @@ public class EmetteurNRZTest {
 	}
 	
 	@Test	
-	public void test_Parmetres() throws InformationNonConforme {
+	public void test_Parmetres() throws InformationNonConforme, ArgumentsException {
 		
 		Information<Boolean> informationTestRecue = new Information<Boolean>();
 		informationTestRecue.add(false);
@@ -123,39 +124,5 @@ public class EmetteurNRZTest {
 		collector.checkThat(emetteurTestNRZ.getInformationEmise().iemeElement(1000), is(2.0F));
 	}
 
-	
-	@Test	
-	public void test_CasLimites() throws InformationNonConforme {
-		
-		Information<Boolean> informationTestRecue = new Information<Boolean>();
-		informationTestRecue.add(false);
-		informationTestRecue.add(true);
-		Random r = new Random();		
-		for(int i = 0; i < NBECH_TEST-2; i++){
-			Boolean value = r.nextBoolean();
-			informationTestRecue.add(value);
-		}
-		 try {
-		 	EmetteurNRZ emetteurTestNRZMinMaxError = new EmetteurNRZ(2,-2,1000);
-		    fail("Should throw exception : Case Min > Max ");
-		 }catch(InformationNonConforme aExp){
-			assert(aExp.getMessage().contains("Min > Max"));
-		 }
-		 
-		 try {
-			 EmetteurNRZ emetteurTestNRZNbEch0Error = new EmetteurNRZ(0);
-			 fail("Should throw exception : Case NbEch = 0");
-		 }catch(InformationNonConforme aExp){
-			 assert(aExp.getMessage().contains(" NbEch = 0"));
-		 }
-		 
-		 try {
-			 EmetteurNRZ emetteurTestNRZNbEchNegError = new EmetteurNRZ(0);
-			 fail("Should throw exception : Case NbEch < 0");
-		 }catch(InformationNonConforme aExp){
-			 assert(aExp.getMessage().contains(" NbEch < 0"));
-		 }
-		 
-	}
 
 }
