@@ -14,6 +14,18 @@ import org.junit.rules.ErrorCollector;
 
 import transmetteurs.EmetteurNRZ;
 
+/**
+ * 
+ * @author M.LEMAUVIEL
+ * @author LK.CHAO
+ * @author L.AMHOUCHE
+ * @author A.KANE
+ * @author J.CORCUFF
+ *
+ * La classe Test de la classe EmetteurNRZ
+ * JUnit Test Case of EmetteurNRZ
+ * 
+ */
 
 public class EmetteurNRZTest {
 
