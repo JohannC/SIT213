@@ -56,6 +56,12 @@ public class Simulateur {
 	private Destination<Boolean> destination = null;
 	/** le message à transmettre si celui-ci est booléen **/
 	private Information<Boolean> information = null;
+	
+	/** Si le signal emis an transmetteur est analogique **/
+	private Boolean signalAnalogique = false;
+	
+	/** Forme du signal analogique **/
+	private String forme;
 
 	/**
 	 * Le constructeur de Simulateur construit une chaîne de transmission
@@ -162,6 +168,14 @@ public class Simulateur {
 						throw new ArgumentsException("Valeur du parametre -mess invalide : " + nbBitsMess);
 				} else
 					throw new ArgumentsException("Valeur du parametre -mess invalide : " + args[i]);
+			} 
+			else if (args[i].matches("-form")) {
+				i++;
+				forme = args[i].toUpperCase();
+				if (forme.matches("RZ|NRZ|NRZT"))
+						signalAnalogique = true;
+				else
+					throw new ArgumentsException("Valeur du parametre -form invalide : " + args[i]);
 			}
 
 			else
