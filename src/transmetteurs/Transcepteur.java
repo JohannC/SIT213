@@ -1,6 +1,6 @@
 package transmetteurs;
 
-import information.InformationNonConforme;
+import excpetion.ArgumentsException;
 
 public abstract class Transcepteur<R, E> extends Transmetteur<R, E> {
 	protected int nbEchantillon;
@@ -17,29 +17,29 @@ public abstract class Transcepteur<R, E> extends Transmetteur<R, E> {
 		this.nbEchantillon = DEFAULT_NB_ECHANTILLON;
 	}
 
-	public Transcepteur(int nbEchantillon) throws InformationNonConforme {
+	public Transcepteur(int nbEchantillon) throws ArgumentsException {
 		this.min = DEFAULT_MIN;
 		this.max = DEFAULT_MAX;
 		if(nbEchantillon < 1){
-			throw new InformationNonConforme();
+			throw new ArgumentsException("Le nombre d'échantillons doit être une valeur entière positive");
 		}
 		this.nbEchantillon = nbEchantillon;
 	}
 
-	public Transcepteur(float min, float max) throws InformationNonConforme {
+	public Transcepteur(float min, float max) throws ArgumentsException {
 		
 		if(min >= max){
-			throw new InformationNonConforme();
+			throw new ArgumentsException("La valeur minimale doit être infiérieure à la valeur maximale");
 		}
 		this.min = min;
 		this.max = max;
 		this.nbEchantillon = DEFAULT_NB_ECHANTILLON;
 	}
 
-	public Transcepteur(float min, float max, int nbEchantillon) throws InformationNonConforme {
+	public Transcepteur(float min, float max, int nbEchantillon) throws ArgumentsException {
 		
 		if(nbEchantillon < 1 || min >= max){
-			throw new InformationNonConforme();
+			throw new ArgumentsException("Le nombre d'échantillons doit être une valeur entière positive et la valeur minimale doit être infiérieure à la valeur maximale ");
 		}
 		this.nbEchantillon = nbEchantillon;
 		this.min = min;

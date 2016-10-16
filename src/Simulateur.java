@@ -57,6 +57,8 @@ public class Simulateur {
 	/** le message à transmettre si celui-ci est booléen **/
 	private Information<Boolean> information = null;
 
+	private int nbE;
+
 	/**
 	 * Le constructeur de Simulateur construit une chaîne de transmission
 	 * composée d'une Source <Boolean>, d'une Destination <Boolean> et de
@@ -77,10 +79,13 @@ public class Simulateur {
 		analyseArguments(args);
 		preparerSimulateur();
 	}
-	
+
 	/**
-	 * La méthode preparerSimulateur sert à initialiser les attributs de l'objet Simulateur en fonction des paramètres passés par l'utilisateur
-	 * @throws ArgumentsException si un des arguments est incorrect
+	 * La méthode preparerSimulateur sert à initialiser les attributs de l'objet
+	 * Simulateur en fonction des paramètres passés par l'utilisateur
+	 * 
+	 * @throws ArgumentsException
+	 *             si un des arguments est incorrect
 	 */
 	private void preparerSimulateur() throws ArgumentsException {
 		if (messageAleatoire) {
@@ -162,12 +167,15 @@ public class Simulateur {
 						throw new ArgumentsException("Valeur du parametre -mess invalide : " + nbBitsMess);
 				} else
 					throw new ArgumentsException("Valeur du parametre -mess invalide : " + args[i]);
-			}
-
-			else
+			} else if (args[i].matches("-nbEch")) {
+				i++;
+				if (args[i].matches("[^-][1-9][0-9]*"))
+					nbE = new Integer(args[i]);
+				else
+					throw new ArgumentsException("Le nombre d'échantillons doit être une valeur entière positive");
+			} else
 				throw new ArgumentsException("Option invalide :" + args[i]);
 		}
-
 	}
 
 	/**
