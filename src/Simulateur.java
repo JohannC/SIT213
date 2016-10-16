@@ -24,6 +24,9 @@ public class Simulateur {
 	private static final String nomSondeTransmetteur = "Destination";
 	private static final int nbPixelSondeSource = 150;
 	private static final int nbPixelSondeTransmetteur = 150;
+	private static int DEFAULT_NB_ECHANTILLON = 30;
+	private static float DEFAULT_MIN = 0.0f;
+	private static float DEFAULT_MAX = 1.0f;
 
 	/** indique si le Simulateur utilise des sondes d'affichage */
 	private boolean affichage = false;
@@ -56,14 +59,21 @@ public class Simulateur {
 	private Destination<Boolean> destination = null;
 	/** le message à transmettre si celui-ci est booléen **/
 	private Information<Boolean> information = null;
-	
+
 	/** Si le signal emis an transmetteur est analogique **/
 	private Boolean signalAnalogique = false;
-	
-	/** Forme du signal analogique **/
-	private String forme;
 
-	private int nbE;
+	/** Forme du signal analogique **/
+	private String formeSignal = "RZ";
+
+	/** Nombre d'échantillons par bit **/
+	private int nombreEchantillon = DEFAULT_NB_ECHANTILLON;
+
+	/** Amplitude minimale **/
+	private float amplitudeMinimale = DEFAULT_MIN;
+
+	/** Amplitude maximale **/
+	private float amplitudeMaximale = DEFAULT_MAX;
 
 	/**
 	 * Le constructeur de Simulateur construit une chaîne de transmission
@@ -176,21 +186,33 @@ public class Simulateur {
 
 			} else if (args[i].matches("-nbEch")) {
 				i++;
-				if (args[i].matches("[^-][1-9][0-9]*"))
-					nbE = new Integer(args[i]);
-				else
+				if (args[i].matches("^[1-9]\\d*")) {
+					nombreEchantillon = new Integer(args[i]);
+					signalAnalogique = true;
+				} else
 					throw new ArgumentsException("Le nombre d'échantillons doit être une valeur entière positive");
-			} 
-			else if (args[i].matches("-form")) {
+			} else if (args[i].matches("-form")) {
 				i++;
-				forme = args[i].toUpperCase();
-				if (forme.matches("RZ|NRZ|NRZT"))
-						signalAnalogique = true;
-				else
+				if (args[i].toUpperCase().matches("RZ|NRZ|NRZT")) {
+					signalAnalogique = true;
+					formeSignal = args[i].toUpperCase();
+				} else
 					throw new ArgumentsException("Valeur du parametre -form invalide : " + args[i]);
-			}
-
-			else
+			} else if (args[i].matches("-ampl")) {
+				float min;
+				float max;
+				if (args[++i].matches("^([+-]?\\d*\\.?\\d*)$") && args[++i].matches("^([+-]?\\d*\\.?\\d*)$")) {
+					min = new Float(args[i-1]).floatValue();
+					max = new Float(args[i]).floatValue();
+					if (min < max) {
+						amplitudeMaximale = max;
+						amplitudeMinimale = min;
+						signalAnalogique = true;
+					} else
+						throw new ArgumentsException("La valeur minimale doit être inférieure à la valeur maximale");
+				} else
+					throw new ArgumentsException("Valeur(s) parametre(s) -ampl invalide(s) : " + args[i] + " " + args[i + 1]);
+			} else
 				throw new ArgumentsException("Option invalide :" + args[i]);
 		}
 	}
