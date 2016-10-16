@@ -1,5 +1,7 @@
 package transmetteurs;
 
+import information.InformationNonConforme;
+
 public abstract class Transcepteur<R, E> extends Transmetteur<R, E> {
 	protected int nbEchantillon;
 	protected float min;
@@ -15,22 +17,32 @@ public abstract class Transcepteur<R, E> extends Transmetteur<R, E> {
 		this.nbEchantillon = DEFAULT_NB_ECHANTILLON;
 	}
 
-	public Transcepteur(int nbEchantillon) {
+	public Transcepteur(int nbEchantillon) throws InformationNonConforme {
 		this.min = DEFAULT_MIN;
 		this.max = DEFAULT_MAX;
+		if(nbEchantillon < 1){
+			throw new InformationNonConforme();
+		}
 		this.nbEchantillon = nbEchantillon;
 	}
 
-	public Transcepteur(float min, float max) {
+	public Transcepteur(float min, float max) throws InformationNonConforme {
+		
+		if(min >= max){
+			throw new InformationNonConforme();
+		}
 		this.min = min;
 		this.max = max;
 		this.nbEchantillon = DEFAULT_NB_ECHANTILLON;
 	}
 
-	public Transcepteur(float min, float max, int nbEchantillon) {
+	public Transcepteur(float min, float max, int nbEchantillon) throws InformationNonConforme {
+		
+		if(nbEchantillon < 1 || min >= max){
+			throw new InformationNonConforme();
+		}
+		this.nbEchantillon = nbEchantillon;
 		this.min = min;
 		this.max = max;
-		this.nbEchantillon = nbEchantillon;
 	}
-
 }
