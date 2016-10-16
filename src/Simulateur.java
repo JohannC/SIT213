@@ -56,6 +56,12 @@ public class Simulateur {
 	private Destination<Boolean> destination = null;
 	/** le message à transmettre si celui-ci est booléen **/
 	private Information<Boolean> information = null;
+	
+	/** Si le signal emis an transmetteur est analogique **/
+	private Boolean signalAnalogique = false;
+	
+	/** Forme du signal analogique **/
+	private String forme;
 
 	private int nbE;
 
@@ -167,6 +173,7 @@ public class Simulateur {
 						throw new ArgumentsException("Valeur du parametre -mess invalide : " + nbBitsMess);
 				} else
 					throw new ArgumentsException("Valeur du parametre -mess invalide : " + args[i]);
+<<<<<<< HEAD
 			} else if (args[i].matches("-nbEch")) {
 				i++;
 				if (args[i].matches("[^-][1-9][0-9]*"))
@@ -174,6 +181,19 @@ public class Simulateur {
 				else
 					throw new ArgumentsException("Le nombre d'échantillons doit être une valeur entière positive");
 			} else
+=======
+			} 
+			else if (args[i].matches("-form")) {
+				i++;
+				forme = args[i].toUpperCase();
+				if (forme.matches("RZ|NRZ|NRZT"))
+						signalAnalogique = true;
+				else
+					throw new ArgumentsException("Valeur du parametre -form invalide : " + args[i]);
+			}
+
+			else
+>>>>>>> 25e003b2c187c4f81fc21895ffeac72d144681a5
 				throw new ArgumentsException("Option invalide :" + args[i]);
 		}
 	}

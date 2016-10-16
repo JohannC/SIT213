@@ -7,37 +7,46 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-import sources.SourceFixe;
+import information.Information;
 import transmetteurs.EmetteurRZ;
 
 public class EmetteurRZTest {
 
-	private SourceFixe source;
 	private EmetteurRZ emetteur;
+	private Information<Boolean> information;
+	private int nbElements;
 	
 	@Rule
 	public ErrorCollector collector = new ErrorCollector();
 	
 	@Before
 	public void setUp() throws Exception {
-		source = new SourceFixe("110110001");
-		emetteur = new EmetteurRZ();
+		information = new Information <Boolean>();
 		
-		source.connecter(emetteur);
-		source.emettre();
+		nbElements = 0;
+		information.add(true);
+		nbElements ++;
+		information.add(true);
+		nbElements ++;
+		information.add(false);
+		nbElements ++;
+		
+		emetteur = new EmetteurRZ();
+		emetteur.recevoir(information);
+
 	}
 
 	@Test
 	public void test() {
-		//Vérification de la bonne réception de l'information
-		collector.checkThat(source.getInformationEmise(), is(emetteur.getInformationRecue()));
+		//Verification de la bonne reception de l'information
+		collector.checkThat(emetteur.getInformationRecue(), is(information));
 		
-		//Test du bon nombre d'élements en émission
-		collector.checkThat(9*30, is(emetteur.getInformationEmise().nbElements()));
+		//Test du bon nombre d'elements en emission
+		collector.checkThat(emetteur.getInformationEmise().nbElements(), is(nbElements*30));
 		
-		//Vérification de quelques éléments du signal analogique en sortie
-		collector.checkThat(0.0f, is(emetteur.getInformationEmise().iemeElement(0)));
-		collector.checkThat(1.0f, is(emetteur.getInformationEmise().iemeElement(11)));
+		//Vérification de quelques elements du signal analogique en sortie
+		collector.checkThat(emetteur.getInformationEmise().iemeElement(0), is(0.0f));
+		collector.checkThat(emetteur.getInformationEmise().iemeElement(11), is(1.0f));
 	}
 
 }
