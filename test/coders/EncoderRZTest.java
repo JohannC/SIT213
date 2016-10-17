@@ -1,7 +1,6 @@
 package coders;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,13 +8,11 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
 import information.Information;
-import transmetteurs.Emetteur;
 
 public class EncoderRZTest {
 	
-	float min;
-	float max;
 	int nbEch;
+	float min, max;
 	private EncoderRZ codeur;
 	private Information<Boolean> infoBool;
 	private int nbBits;
