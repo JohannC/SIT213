@@ -30,11 +30,11 @@ public class DecoderRZTest {
 		
 		infoFloat = new Information<Float>();
 		
-		//Second symbole : 0
+		//Premier symbole : 0
 		for (int i=0; i<nbEch ; i++)
 			infoFloat.add(0f);
 		
-		//Premier symbole : 1
+		//Second symbole : 1
 		for (int i=0; i<nbEch/3 ; i++)
 			infoFloat.add(0f);
 		for (int i=0; i<nbEch/3 ; i++)
