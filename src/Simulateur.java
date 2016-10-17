@@ -65,7 +65,7 @@ public class Simulateur {
 
 	/** le composant Source de la chaine de transmission */
 	private Source<Boolean> source = null;
-	/**Le composant emetteur analogique de la chaine de transmission **/
+	/** Le composant emetteur analogique de la chaine de transmission **/
 	private Emetteur emetteur;
 	/** Lecomposant transmetteur parfait analogique **/
 	private Transmetteur<Float, Float> transmetteurAnalogiqueParfait;
@@ -131,40 +131,36 @@ public class Simulateur {
 				source = new SourceAleatoire(nbBitsMess, (long) seed);
 			else
 				source = new SourceAleatoire(nbBitsMess);
-			transmetteurLogique = new TransmetteurParfait();
 			destination = new DestinationFinale();
 		} else {
 			// prépareration d'une transmission de messageString
 			source = new SourceFixe(messageString);
-			transmetteurLogique = new TransmetteurParfait();
 			destination = new DestinationFinale();
 		}
-		if(signalAnalogique) {
-			source = new SourceFixe(messageString);
-			transmetteurLogique = new TransmetteurParfait();
+		if (signalAnalogique) {
 			transmetteurAnalogiqueParfait = new TransmetteurAnalogiqueParfait();
-			destination = new DestinationFinale();
 			emetteur = new Emetteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
-			recepteur = new Recepteur(formeSignal,amplitudeMinimale, amplitudeMaximale,nombreEchantillon);
+			recepteur = new Recepteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
+			source.connecter(emetteur);
+			emetteur.connecter(transmetteurAnalogiqueParfait);
+			transmetteurAnalogiqueParfait.connecter(recepteur);
+			recepteur.connecter(destination);
+		} else {
+			transmetteurLogique = new TransmetteurParfait();
+			source.connecter(transmetteurLogique);
+			transmetteurLogique.connecter(destination);
 		}
 		if (affichage) {
-			if(signalAnalogique) {
+			if (signalAnalogique) {
 				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
-				source.connecter(emetteur);
-				emetteur.connecter(transmetteurAnalogiqueParfait);
 				emetteur.connecter(new SondeAnalogique(nomSondeEmetteurAnalogique));
 				transmetteurAnalogiqueParfait.connecter(new SondeAnalogique(nomSondeTransmetteurAnalogique));
-				transmetteurAnalogiqueParfait.connecter(recepteur);
-				recepteur.connecter(new SondeLogique(nomSondeRecepteur,nbPixelSondeRecepteur ));
-				recepteur.connecter(destination);
-			}
-			else {
-			source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
-			transmetteurLogique.connecter(new SondeLogique(nomSondeTransmetteur, nbPixelSondeTransmetteur));
+				recepteur.connecter(new SondeLogique(nomSondeRecepteur, nbPixelSondeRecepteur));
+			} else {
+				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
+				transmetteurLogique.connecter(new SondeLogique(nomSondeTransmetteur, nbPixelSondeTransmetteur));
 			}
 		}
-		source.connecter(transmetteurLogique);
-		transmetteurLogique.connecter(destination);
 	}
 
 	/**
@@ -242,7 +238,7 @@ public class Simulateur {
 				float min;
 				float max;
 				if (args[++i].matches("^([+-]?\\d*\\.?\\d*)$") && args[++i].matches("^([+-]?\\d*\\.?\\d*)$")) {
-					min = new Float(args[i-1]).floatValue();
+					min = new Float(args[i - 1]).floatValue();
 					max = new Float(args[i]).floatValue();
 					if (min < max) {
 						amplitudeMaximale = max;
@@ -251,7 +247,8 @@ public class Simulateur {
 					} else
 						throw new ArgumentsException("La valeur minimale doit être inférieure à la valeur maximale");
 				} else
-					throw new ArgumentsException("Valeur(s) parametre(s) -ampl invalide(s) : " + args[i] + " " + args[i + 1]);
+					throw new ArgumentsException(
+							"Valeur(s) parametre(s) -ampl invalide(s) : " + args[i] + " " + args[i + 1]);
 			} else
 				throw new ArgumentsException("Option invalide :" + args[i]);
 		}
