@@ -55,7 +55,7 @@ public class EncoderRZTest {
 		for(int i = nbEch ; i < nbEch+(nbEch/3) ; i++)
 			collector.checkThat(infoFloat.iemeElement(i), is(min));
 		for(int i = nbEch+(nbEch/3) ; i < nbEch+(2*nbEch/3) ; i++)
-			collector.checkThat(infoFloat.iemeElement(i), is(max));	
+			collector.checkThat(true, is(infoFloat.iemeElement(i)>min));	
 		for(int i = nbEch+(2*nbEch/3) ; i < nbBits*nbEch ; i++)
 			collector.checkThat(infoFloat.iemeElement(i), is(min));
 		
