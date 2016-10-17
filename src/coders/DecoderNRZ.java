@@ -5,12 +5,11 @@ import information.Information;
 /**
  * DecoderNRZ permet de décoder un signal NRZ
  * 
- * @author Arouna
- *
  */
 public class DecoderNRZ extends Decoder {
 	/**
-	 * onstructeur pour initialiser le décodeur NRZ
+	 * Constructeur pour initialiser le décodeur NRZ
+	 * 
 	 * @param min
 	 *            amplitude minimale
 	 * @param max
@@ -23,8 +22,10 @@ public class DecoderNRZ extends Decoder {
 	}
 
 	/**
-	 * Méthode pour décoder le signal NRZ
-	 * Elle transforme un Information<Float> en Information<Boolean>
+	 * Méthode pour décoder le signal NRZ Traransforme un Information<Float> en
+	 * Information<Boolean>
+	 * 
+	 * @return informationNRZ le signal NRZ décodé
 	 */
 	@Override
 	public Information<Boolean> decode(Information<Float> msg) {

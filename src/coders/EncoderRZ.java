@@ -2,12 +2,31 @@ package coders;
 
 import information.Information;
 
-public class EncoderRZ extends Encoder{
+/**
+ * EncoderRZ permet de coder un signal RZ
+ * 
+ */
+public class EncoderRZ extends Encoder {
 
+	/**
+	 * Constructeur pour initialiser le Codeur RZ
+	 * 
+	 * @param min
+	 *            amplitude minimale
+	 * @param max
+	 *            amplitude maximale
+	 * @param nbEchantillon
+	 *            nombre d'échantillons par bit
+	 */
 	public EncoderRZ(float min, float max, int nbEchantillon) {
 		super(min, max, nbEchantillon);
 	}
 
+	/**
+	 * Encode le signal RZ
+	 * 
+	 * @return le signal RZ
+	 */
 	@Override
 	public Information<Float> encode(Information<Boolean> msg) {
 		Information<Float> signalRZ = new Information<Float>();
@@ -16,11 +35,15 @@ public class EncoderRZ extends Encoder{
 		}
 		return signalRZ;
 	}
-	
+
 	/**
-	 * Encode chaque bit du signal RZ, chaque bit est constitué de nbEchantillons
-	 * @param signalRZ le signal RZ
-	 * @param bit Un bit du signal RZ
+	 * Encode chaque bit du signal RZ, chaque bit est constitué de
+	 * nbEchantillons
+	 * 
+	 * @param signalRZ
+	 *            le signal RZ
+	 * @param bit
+	 *            Un bit du signal RZ
 	 */
 	private void encodageBitRZ(Information<Float> signalRZ, Boolean bit) {
 		int t1 = nbEchantillon / 3;

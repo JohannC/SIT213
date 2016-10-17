@@ -2,13 +2,31 @@ package coders;
 
 import information.Information;
 
+/**
+ * EncoderNRZT permet de coder un signal NRZT
+ * 
+ */
+
 public class EncoderNRZT extends Encoder {
-	
+
+	/**
+	 * 
+	 * Constructeur pour initialiser le Codeur NRZT
+	 * 
+	 * @param min
+	 *            amplitude minimale
+	 * @param max
+	 *            amplitude maximale
+	 * @param nbEchantillon
+	 *            nombre d'échantillons par bit
+	 */
+
 	public EncoderNRZT(float min, float max, int nbEchantillon) {
 		super(min, max, nbEchantillon);
 	}
 
-	/** Encode le signal NRZT
+	/**
+	 * Encode le signal NRZT
 	 * 
 	 * @return le signal NRZT
 	 */
@@ -23,21 +41,15 @@ public class EncoderNRZT extends Encoder {
 			} else {
 				precedentBit = msg.iemeElement(i - 1);
 			}
-			if (i == (msg.nbElements()-1)) {
+			if (i == (msg.nbElements() - 1)) {
 				nextBit = false;
 			} else {
 				nextBit = msg.iemeElement(i + 1);
 			}
-			
+
 			encodageBit(signalNRZT, msg.iemeElement(i), precedentBit, nextBit);
 		}
 		return signalNRZT;
-	}
-	
-	/**
-	 
-	private Information<Float> encodageNRZT() {
-		
 	}
 
 	/**
@@ -55,9 +67,9 @@ public class EncoderNRZT extends Encoder {
 		int t2 = nbEchantillon - t1 - t3;
 		float deltaAmplitude = max - min;
 		if (bit == true) {// bit � 1
-			if (precedentBit == false) {//Evite d'avoir 
+			if (precedentBit == false) {// Evite d'avoir
 				for (int i = 0; i < t1; i++) {
-					signalNRZT.add(this.min + (float)i / t1 * deltaAmplitude);
+					signalNRZT.add(this.min + (float) i / t1 * deltaAmplitude);
 				}
 			} else {
 				for (int i = 0; i < t1; i++) {
@@ -68,16 +80,15 @@ public class EncoderNRZT extends Encoder {
 				signalNRZT.add(this.max);
 			}
 
-			if(nextBit == true){
+			if (nextBit == true) {
 				for (int i = 1; i <= t3; i++) {
 					signalNRZT.add(this.max);
 				}
 			} else {
 				for (int i = 1; i <= t3; i++) {
-					signalNRZT.add(this.max - (float)i / t3 * deltaAmplitude);
+					signalNRZT.add(this.max - (float) i / t3 * deltaAmplitude);
 				}
 			}
-			
 
 		} else {
 			for (int i = 1; i <= nbEchantillon; i++) {
@@ -86,5 +97,5 @@ public class EncoderNRZT extends Encoder {
 		}
 
 	}
-	
+
 }
