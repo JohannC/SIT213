@@ -1,6 +1,9 @@
 package transmetteurs;
 
 import coders.Encoder;
+import coders.EncoderNRZ;
+import coders.EncoderNRZT;
+import coders.EncoderRZ;
 import destinations.DestinationInterface;
 import excpetion.ArgumentsException;
 import information.Information;
@@ -10,24 +13,35 @@ public class Emetteur extends Transcepteur<Boolean, Float>{
 	
 	private Encoder encoder; 
 	
-	public Emetteur(Encoder encoder) {
-		super();
-		this.encoder = encoder;
-	}
+//	public Emetteur(Encoder encoder) {
+//		super();
+//		this.encoder = encoder;
+//	}
+//
+//	public Emetteur(Class encoder,int nbEchantillon) throws ArgumentsException {
+//		super(nbEchantillon);
+//	}
 
-	public Emetteur(Encoder encoder,int nbEchantillon) throws ArgumentsException {
-		super(nbEchantillon);
-		this.encoder = encoder;
-	}
+//	public Emetteur(String forme, float min, float max) throws ArgumentsException {
+//		super(min, max);
+//		this.encoder = encoder;
+//	}
 
-	public Emetteur(Encoder encoder, float min, float max) throws ArgumentsException {
-		super(min, max);
-		this.encoder = encoder;
-	}
-
-	public Emetteur(Encoder encoder, float min, float max, int nbEchantillon) throws ArgumentsException {
+	public Emetteur(String forme, float min, float max, int nbEchantillon) throws ArgumentsException {
 		super(min, max, nbEchantillon);
-		this.encoder = encoder;
+		switch (forme) {
+		case "NRZ":
+			encoder = new EncoderNRZ(this.min, this.max, this.nbEchantillon);
+			break;
+		case "NRZT":
+			encoder = new EncoderNRZT(this.min, this.max, this.nbEchantillon);
+			break;
+		case "RZ":
+			encoder = new EncoderRZ(this.min, this.max, this.nbEchantillon);
+			break;	
+		default:
+			break;
+		}
 	}
 	
 	@Override

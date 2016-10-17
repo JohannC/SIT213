@@ -1,3 +1,9 @@
+import coders.DecoderNRZ;
+import coders.DecoderNRZT;
+import coders.DecoderRZ;
+import coders.EncoderNRZ;
+import coders.EncoderNRZT;
+import coders.EncoderRZ;
 import destinations.Destination;
 import destinations.DestinationFinale;
 import excpetion.ArgumentsException;
@@ -5,8 +11,12 @@ import information.Information;
 import sources.Source;
 import sources.SourceAleatoire;
 import sources.SourceFixe;
+import transmetteurs.Emetteur;
+import transmetteurs.Recepteur;
 import transmetteurs.Transmetteur;
+import transmetteurs.TransmetteurAnalogiqueParfait;
 import transmetteurs.TransmetteurParfait;
+import visualisations.SondeAnalogique;
 import visualisations.SondeLogique;
 
 /**
@@ -22,8 +32,12 @@ public class Simulateur {
 
 	private static final String nomSondeSource = "Source";
 	private static final String nomSondeTransmetteur = "Destination";
+	private static final String nomSondeEmetteurAnalogique = "emetteur";
 	private static final int nbPixelSondeSource = 150;
 	private static final int nbPixelSondeTransmetteur = 150;
+	private static final String nomSondeRecepteur = "recepteur";
+	private static final int nbPixelSondeRecepteur = 50;
+	private static final String nomSondeTransmetteurAnalogique = "Transmetteur Analogique";
 	private static int DEFAULT_NB_ECHANTILLON = 30;
 	private static float DEFAULT_MIN = 0.0f;
 	private static float DEFAULT_MAX = 1.0f;
@@ -51,6 +65,12 @@ public class Simulateur {
 
 	/** le composant Source de la chaine de transmission */
 	private Source<Boolean> source = null;
+	/**Le composant emetteur analogique de la chaine de transmission **/
+	private Emetteur emetteur;
+	/** Lecomposant transmetteur parfait analogique **/
+	private Transmetteur<Float, Float> transmetteurAnalogiqueParfait;
+	/** Le composant recepeteur analogique de la chaine de transmission **/
+	private Recepteur recepteur;
 	/**
 	 * le composant Transmetteur parfait logique de la chaine de transmission
 	 */
@@ -119,9 +139,29 @@ public class Simulateur {
 			transmetteurLogique = new TransmetteurParfait();
 			destination = new DestinationFinale();
 		}
+		if(signalAnalogique) {
+			source = new SourceFixe(messageString);
+			transmetteurLogique = new TransmetteurParfait();
+			transmetteurAnalogiqueParfait = new TransmetteurAnalogiqueParfait();
+			destination = new DestinationFinale();
+			emetteur = new Emetteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
+			recepteur = new Recepteur(formeSignal,amplitudeMinimale, amplitudeMaximale,nombreEchantillon);
+		}
 		if (affichage) {
+			if(signalAnalogique) {
+				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
+				source.connecter(emetteur);
+				emetteur.connecter(transmetteurAnalogiqueParfait);
+				emetteur.connecter(new SondeAnalogique(nomSondeEmetteurAnalogique));
+				transmetteurAnalogiqueParfait.connecter(new SondeAnalogique(nomSondeTransmetteurAnalogique));
+				transmetteurAnalogiqueParfait.connecter(recepteur);
+				recepteur.connecter(new SondeLogique(nomSondeRecepteur,nbPixelSondeRecepteur ));
+				recepteur.connecter(destination);
+			}
+			else {
 			source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
 			transmetteurLogique.connecter(new SondeLogique(nomSondeTransmetteur, nbPixelSondeTransmetteur));
+			}
 		}
 		source.connecter(transmetteurLogique);
 		transmetteurLogique.connecter(destination);
