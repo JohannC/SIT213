@@ -150,7 +150,7 @@ public class Simulateur {
 			source.connecter(transmetteurLogique);
 			transmetteurLogique.connecter(destination);
 		}
-		//fdfdsfdsfdsfds
+		// fdfdsfdsfdsfds
 		if (affichage) {
 			if (signalAnalogique) {
 				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
