@@ -1,0 +1,21 @@
+
+BIN_OUTPUT='bin/'
+DOC_OUTPUT='doc/'
+
+SOURCES="$(find {src,test} -name '*.java')"
+CLASSPATH="$BIN_OUTPUT:$(find lib -name '*.jar' | tr '\n' ':')"
+
+[[ -e "$BIN_OUTPUT" ]] || mkdir -p "$BIN_OUTPUT"
+[[ -e "$DOC_OUTPUT" ]] || mkdir -p "$DOC_OUTPUT"
+
+if [[ -z "$(find ${BIN_OUTPUT} -name '*.class')" ]]; then
+    echo "INFO: Simulator classes not found. Compiling..."
+    javac -encoding UTF-8 -cp "$CLASSPATH" -d "$BIN_OUTPUT" ${SOURCES}
+fi
+
+if [[ -z "$(find ${DOC_OUTPUT} -name '*.html')" ]]; then
+    echo "INFO: Javadoc not found. Generating..."
+    javadoc -encoding UTF-8 -cp "$CLASSPATH" -quiet -private -d "$DOC_OUTPUT" $(find src -name "*.java")
+fi
+
+java -cp "$CLASSPATH" Simulateur $@
