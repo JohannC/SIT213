@@ -24,13 +24,13 @@ public class EncoderNRZTest {
 	 * @author A.KANE
 	 * @author J.CORCUFF
 	 *
-	 * La classe Test de la classe EmetteurNRZ
-	 * JUnit Test Case of EmetteurNRZ
+	 * La classe Test de la classe CoderNRZ
+	 * Test JUnit de CoderNRZ
 	 * 
 	 */
 	
 	/**
-	 * Nombre d'echantillon par défaut
+	 * Nombre d'echantillons par défaut
 	 */
 	private static final int DEFAULT_NB_ECHANTILLON = 30;
 	
@@ -45,7 +45,7 @@ public class EncoderNRZTest {
 	private static float DEFAULT_MAX = 1.0f;
 	
 	/**
-	 * Nombre d'impulsation émises 
+	 * Nombre d'impulsations émises 
 	 */
 	private static final int NBECH_TEST = 6;
 	
@@ -53,9 +53,9 @@ public class EncoderNRZTest {
 	public ErrorCollector collector = new ErrorCollector();
 	
 	/**
-	 * Methode testant le nombre d'echantillons envoyé 
-	 * @throws InformationNonConforme : Exception levée à la reception des informations erronées  
-	 * @throws ArgumentsException : Exception levée à la reception des arguments invalides 
+	 * Methode testant le nombre d'echantillons envoyés 
+	 * @throws InformationNonConforme : Exception levée à la reception d'informations erronées  
+	 * @throws ArgumentsException : Exception levée à la reception d'arguments invalides 
 	 */
 	@Test
 	public void testNombreEchantillonProduit() throws InformationNonConforme, ArgumentsException {
@@ -76,8 +76,8 @@ public class EncoderNRZTest {
 	
 	/**
 	 * Methode testant le codage de niveau des echantillons envoyés 
-	 * @throws InformationNonConforme : Exception levée à la reception des informations erronées  
-	 * @throws ArgumentsException : Exception levée à la reception des arguments invalides 
+	 * @throws InformationNonConforme : Exception levée à la reception d'informations erronées  
+	 * @throws ArgumentsException : Exception levée à la reception d'arguments invalides 
 	 */
 	
 	@Test

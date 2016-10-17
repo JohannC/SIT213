@@ -24,13 +24,13 @@ public class DecoderNRZTest {
 	 * @author A.KANE
 	 * @author J.CORCUFF
 	 *
-	 * La classe Test de la classe EmetteurNRZ
-	 * JUnit Test Case of EmetteurNRZ
+	 * La classe Test de la classe DecoderNRZ
+	 * Test JUnit de DecoderNRZ
 	 * 
 	 */
 	
 	/**
-	 * Nombre d'echantillon par défaut
+	 * Nombre d'echantillons par défaut
 	 */
 	private static final int DEFAULT_NB_ECHANTILLON = 30;
 	
@@ -45,7 +45,7 @@ public class DecoderNRZTest {
 	private static float DEFAULT_MAX = 1.0f;
 	
 	/**
-	 * Nombre d'impulsation émises 
+	 * Nombre d'impulsations émises 
 	 */
 	private static final int NBECH_TEST = 6;
 	
@@ -54,8 +54,8 @@ public class DecoderNRZTest {
 	
 	/**
 	 * Methode testant le nombre d'elements reçus 
-	 * @throws InformationNonConforme : Exception levée à la reception des informations erronées  
-	 * @throws ArgumentsException : Exception levée à la reception des arguments invalides 
+	 * @throws InformationNonConforme : Exception levée à la reception d'informations erronées  
+	 * @throws ArgumentsException : Exception levée à la reception d'arguments invalides 
 	 */
 	
 	@Test
@@ -81,9 +81,9 @@ public class DecoderNRZTest {
 	}
 	
 	/**
-	 * Methode testant le decodage de niveaux des echantillons et la conversion aux elements boolean   
-	 * @throws InformationNonConforme : Exception levée à la reception des informations erronées  
-	 * @throws ArgumentsException : Exception levée à la reception des arguments invalides 
+	 * Methode testant le decodage de niveaux des echantillons et la conversion en elements boolean   
+	 * @throws InformationNonConforme : Exception levée à la reception d'informations erronées  
+	 * @throws ArgumentsException : Exception levée à la reception d'arguments invalides 
 	 */
 	@Test
 	public void testBonDecodageMinEtMax() throws InformationNonConforme, ArgumentsException {
