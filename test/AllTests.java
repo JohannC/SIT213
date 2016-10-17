@@ -9,7 +9,7 @@ import transmetteur.TransmetteurParfaitTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ SourceAleatoireTest.class, TransmetteurParfaitTest.class, SimulateurTest.class, SourceFixeTest.class,
-		DestinationFinaleTest.class })
+		DestinationFinaleTest.class,  })
 public class AllTests {
 
 }
