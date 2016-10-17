@@ -12,21 +12,6 @@ import information.InformationNonConforme;
 public class Recepteur extends Transcepteur<Float, Boolean>{
 	
 	private Decoder decoder; 
-	
-//	public Recepteur(Decoder decoder) {
-//		super();
-//		this.decoder = decoder;
-//	}
-//
-//	public Recepteur(Decoder decoder,int nbEchantillon) throws ArgumentsException {
-//		super(nbEchantillon);
-//		this.decoder = decoder;
-//	}
-//
-//	public Recepteur(Decoder decoder, float min, float max) throws ArgumentsException {
-//		super(min, max);
-//		this.decoder = decoder;
-//	}
 
 	public Recepteur(String forme, float min, float max, int nbEchantillon) throws ArgumentsException {
 		super(min, max, nbEchantillon);

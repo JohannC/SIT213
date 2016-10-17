@@ -12,20 +12,7 @@ import information.InformationNonConforme;
 public class Emetteur extends Transcepteur<Boolean, Float>{
 	
 	private Encoder encoder; 
-	
-//	public Emetteur(Encoder encoder) {
-//		super();
-//		this.encoder = encoder;
-//	}
-//
-//	public Emetteur(Class encoder,int nbEchantillon) throws ArgumentsException {
-//		super(nbEchantillon);
-//	}
 
-//	public Emetteur(String forme, float min, float max) throws ArgumentsException {
-//		super(min, max);
-//		this.encoder = encoder;
-//	}
 
 	public Emetteur(String forme, float min, float max, int nbEchantillon) throws ArgumentsException {
 		super(min, max, nbEchantillon);
