@@ -1,7 +1,7 @@
 package transmetteurs;
 
 /**
-* Classe Transcepteur qui s'occuppe de conserver en commun les attributs :
+* Classe abstraite Transcepteur qui s'occuppe de conserver en commun les attributs :
 * - nbEchantillon, le nombre d'échantillon par bit
 * - min et max les valeurs limites du signal analogique
 * @param <R> Type de l'information en réception

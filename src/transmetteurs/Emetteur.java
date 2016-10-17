@@ -11,13 +11,14 @@ import information.InformationNonConforme;
 
 /**
  * Classe Emetteur : Emet un signal encodé sous forme NRZ ou RZ ou NZRT
- *
+ * Hérite de la classe Transcepteur.
  */
 public class Emetteur extends Transcepteur<Boolean, Float> {
 
 	private Encoder encoder;
 
 	/**
+	 * Constructeur de la classe Emetteur.
 	 * Initialise l'Emetteur et un encodeur NRZ ou RZ ou NRZT en fonction de la
 	 * forme souhaitée
 	 * 

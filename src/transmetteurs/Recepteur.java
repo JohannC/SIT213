@@ -11,13 +11,14 @@ import information.InformationNonConforme;
 
 /**
  * Classe Recepteur : Reçois un signal encodé sous forme NRZ ou RZ ou NZRT
- *
+ * Hérite de la classe Transcepteur.
  */
 public class Recepteur extends Transcepteur<Float, Boolean> {
 
 	private Decoder decoder;
 
 	/**
+	 * Constructeur de la classe Recepteur
 	 * Initialise le Recepteur et un Decodeur NRZ ou RZ ou NRZT en fonction de
 	 * la forme souhaitée
 	 * 
@@ -58,7 +59,7 @@ public class Recepteur extends Transcepteur<Float, Boolean> {
 	}
 
 	/**
-	 * Méthode pour emettre une information (un signal)
+	 * Méthode pour émettre une information (un signal)
 	 */
 	@Override
 	public void emettre() throws InformationNonConforme {
