@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
-import excpetion.ArgumentsException ;
+import exception.ArgumentsException;
 
 
 public class SimulateurTest {

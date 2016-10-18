@@ -1,6 +1,6 @@
 package sources;
 
-import excpetion.ArgumentsException;
+import exception.ArgumentsException;
 import information.Information;
 
 /**

@@ -5,13 +5,14 @@ import static org.junit.Assert.*;
 import information.Information;
 
 import information.InformationNonConforme;
-import excpetion.ArgumentsException;
 
 import java.util.Random;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
+
+import exception.ArgumentsException;
 
 
 public class DecoderNRZTest {

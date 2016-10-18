@@ -6,7 +6,7 @@ import coders.EncoderNRZT;
 import coders.EncoderRZ;
 import destinations.Destination;
 import destinations.DestinationFinale;
-import excpetion.ArgumentsException;
+import exception.ArgumentsException;
 import information.Information;
 import sources.Source;
 import sources.SourceAleatoire;
