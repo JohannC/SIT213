@@ -1,7 +1,6 @@
 package coders;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Rule;
