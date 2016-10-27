@@ -27,9 +27,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 	@Override
 	public void emettre() throws InformationNonConforme {
 		// TODO Auto-generated method stub
-		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-			destinationConnectee.recevoir(informationRecue);
-		}
+		
 		float puissanceBruit = calculPuissanceBruit(informationRecue, snrDB);
 		BruitBlancGaussien generateurBruit; 
 		
@@ -41,6 +39,10 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		Information<Float> bruit = generateurBruit.generateurBruitBG(informationRecue.nbElements());
 		
 		informationEmise = signalBruite(informationRecue, bruit);
+		
+		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+			destinationConnectee.recevoir(informationEmise);
+		}
 	}
 
 	private float calculPuissanceBruit(Information<Float> informationRecue, float snrDB){
