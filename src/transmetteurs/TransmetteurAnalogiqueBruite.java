@@ -3,15 +3,15 @@ package transmetteurs;
 import information.Information;
 import information.InformationNonConforme;
 
-public class TransmetteurBruite extends Transmetteur<Float, Float> {
+public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
 	private float snrDB;
 	private int seed = 0;
 	
-	public TransmetteurBruite(float snrDB){
+	public TransmetteurAnalogiqueBruite(float snrDB){
 		this.snrDB = snrDB; 
 	}
-	public TransmetteurBruite(float snrDB, int seed){
+	public TransmetteurAnalogiqueBruite(float snrDB, int seed){
 		this.snrDB = snrDB; 
 		this.seed = seed;
 	}
@@ -22,6 +22,7 @@ public class TransmetteurBruite extends Transmetteur<Float, Float> {
 		informationRecue = information;
 		float puissanceBruit = calculPuissanceBruit(informationRecue, snrDB);
 		BruitBlancGaussien generateurBruit; 
+		
 		if (seed == 0)
 			generateurBruit = new BruitBlancGaussien(puissanceBruit);
 		else 
