@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-import excpetion.ArgumentsException;
+import exception.ArgumentsException;
 import information.InformationNonConforme;
 
 public class SourceFixeTest {

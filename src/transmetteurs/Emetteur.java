@@ -5,7 +5,7 @@ import coders.EncoderNRZ;
 import coders.EncoderNRZT;
 import coders.EncoderRZ;
 import destinations.DestinationInterface;
-import excpetion.ArgumentsException;
+import exception.ArgumentsException;
 import information.Information;
 import information.InformationNonConforme;
 
