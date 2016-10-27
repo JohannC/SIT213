@@ -1,5 +1,6 @@
 package transmetteurs;
 
+import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
 
@@ -20,6 +21,15 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 	public void recevoir(Information<Float> information) throws InformationNonConforme {
 		// TODO Auto-generated method stub
 		informationRecue = information;
+		emettre();
+	}
+
+	@Override
+	public void emettre() throws InformationNonConforme {
+		// TODO Auto-generated method stub
+		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+			destinationConnectee.recevoir(informationRecue);
+		}
 		float puissanceBruit = calculPuissanceBruit(informationRecue, snrDB);
 		BruitBlancGaussien generateurBruit; 
 		
@@ -31,13 +41,6 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		Information<Float> bruit = generateurBruit.generateurBruitBG(informationRecue.nbElements());
 		
 		informationEmise = signalBruite(informationRecue, bruit);
-		emettre();
-	}
-
-	@Override
-	public void emettre() throws InformationNonConforme {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private float calculPuissanceBruit(Information<Float> informationRecue, float snrDB){
