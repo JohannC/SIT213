@@ -1,9 +1,3 @@
-import coders.DecoderNRZ;
-import coders.DecoderNRZT;
-import coders.DecoderRZ;
-import coders.EncoderNRZ;
-import coders.EncoderNRZT;
-import coders.EncoderRZ;
 import destinations.Destination;
 import destinations.DestinationFinale;
 import exception.ArgumentsException;
@@ -311,6 +305,9 @@ public class Simulateur {
 				nbErreur++;
 		}
 		float tauxErreurBinaire = (float)nbErreur / (float)infoSource.nbElements();
+		
+		if (tauxErreurBinaire > 0.5 && tauxErreurBinaire <= 1)
+			tauxErreurBinaire = 1 - tauxErreurBinaire ;
 		return tauxErreurBinaire;
 	}
 
