@@ -33,7 +33,7 @@ public abstract class Decoder implements IDecoder {
 		this.nbEchantillon = nbEchantillon;
 		this.min = min;
 		this.max = max;
-		seuilDeDetection = (max + min) / 2;
+		seuilDeDetection = (Math.abs(Math.abs(max) - Math.abs(min))) / 2 + min;
 	}
 
 }

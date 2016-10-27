@@ -49,12 +49,13 @@ public class EncoderRZ extends Encoder {
 		int t1 = nbEchantillon / 3;
 		int t3 = t1;
 		int t2 = nbEchantillon - t1 - t3;
+		float deltaMinMax = Math.abs(Math.abs(this.max) - Math.abs(this.min));
 
 		for (int i = 0; i < t1; i++) {
 			signalRZ.add(this.min);
 		}
 		for (int i = 1; i <= t2; i++) {
-			signalRZ.add(bit ? (float)Math.sin(Math.PI * (float)i/(float)t2)+this.min : this.min);
+			signalRZ.add(bit ? (float)Math.sin(Math.PI * (float)i/(float)t2)*deltaMinMax + this.min : this.min);
 		}
 
 		for (int i = 0; i < t3; i++) {
