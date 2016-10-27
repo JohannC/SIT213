@@ -32,7 +32,7 @@ public class DecoderNRZ extends Decoder {
 		Information<Boolean> informationNRZ = new Information<Boolean>();
 
 		for (int i = 0; i < (msg.nbElements() / nbEchantillon); i++) {
-			if (msg.iemeElement(i * nbEchantillon) > seuilDeDetection) {
+			if (msg.iemeElement(i * nbEchantillon) > super.calculSeuil(msg)) {
 				informationNRZ.add(true);
 			} else {
 				informationNRZ.add(false);

@@ -1,5 +1,7 @@
 package coders;
 
+import information.Information;
+
 /**
  * La classe Decoder permet de décoder l'information en réception
  * Cette classe implémente l'interface IDecoder.
@@ -36,4 +38,13 @@ public abstract class Decoder implements IDecoder {
 		seuilDeDetection = (Math.abs(Math.abs(max) - Math.abs(min))) / 2 + min;
 	}
 
+	//Creation d'un nouveau seuil : moyenne signal/nbEchantillons
+	protected float calculSeuil(Information<Float> msg){
+		float seuil, sommeMsg = 0;
+		for (float e : msg)
+			sommeMsg += e;
+		seuil = sommeMsg/msg.nbElements() ;
+		
+		return seuil ;
+	}
 }

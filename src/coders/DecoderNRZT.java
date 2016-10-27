@@ -46,7 +46,7 @@ public class DecoderNRZT extends Decoder {
 			}
 
 			moyenne = somme / t2;
-			signalNRZT.add(moyenne > seuilDeDetection);
+			signalNRZT.add(moyenne > super.calculSeuil(msg));
 		}
 		return signalNRZT;
 	}
