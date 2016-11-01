@@ -13,16 +13,19 @@ public class TEBgraphe {
 		try {
 			file.createNewFile();
 			fw = new FileWriter(file);
-
-			for (float snr = -30f; snr <= 0f; snr = snr + 0.1f) {
-				String[] args1 = { "-form", "NRZT", "-snr", "" + Math.round(snr * 100.0) / 100.0 };
-				Simulateur simu = new Simulateur(args1);
-				float teb;
-				simu.execute();
-				teb = simu.calculTauxErreurBinaire();
+			
+			for (float snr = -30f; snr <= 20f; snr = snr + 0.1f) {
 				float snr1 = snr + (float) (10*Math.log10(nbEch/2)); 
-				fw.write(""+snr1+";"+teb+"\n");
-
+				fw.write(""+snr1);
+				for (int i = 0; i < 100; i++){
+					String[] args1 = { "-mess", "1000", "-form", "NRZT", "-snr", "" + Math.round(snr * 100.0) / 100.0 };
+					Simulateur simu = new Simulateur(args1);
+					float teb;
+					simu.execute();
+					teb = simu.calculTauxErreurBinaire();
+					fw.write(","+teb);
+				}
+				fw.write("\n");
 			}
 			fw.flush();
 			fw.close();
