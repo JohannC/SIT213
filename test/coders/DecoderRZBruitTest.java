@@ -31,11 +31,11 @@ public class DecoderRZBruitTest {
 		
 		infoFloat = new Information<Float>();
 		Random randomFloat = new Random();
-		//Premier symbole bruité : 0
+		//Premier symbole bruite : 0
 		for (int i=0; i<nbEch ; i++)
 			infoFloat.add(0f+randomFloat.nextFloat()*10);
 		
-		//Second symbole bruité : 1
+		//Second symbole bruite : 1
 		for (int i = 0; i< nbEch /3 ; i++)
 			infoFloat.add(0f+randomFloat.nextFloat()*10);
 		for (int i = 0; i< nbEch / 3 ; i++)

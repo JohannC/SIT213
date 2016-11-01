@@ -9,12 +9,12 @@ CLASSPATH="$BIN_OUTPUT:$(find lib -name '*.jar' | tr '\n' ':')"
 
 if [[ -z "$(find ${BIN_OUTPUT} -name '*.class')" ]]; then
     echo "INFO: Simulator classes not found. Compiling..."
-    javac -encoding UTF-8 -cp "$CLASSPATH" -d "$BIN_OUTPUT" ${SOURCES}
+    javac -encoding UTF-8 -classpath "$CLASSPATH" -d "$BIN_OUTPUT" ${SOURCES}
 fi
 
 if [[ -z "$(find ${DOC_OUTPUT} -name '*.html')" ]]; then
     echo "INFO: Javadoc not found. Generating..."
-    javadoc -encoding UTF-8 -cp "$CLASSPATH" -quiet -private -d "$DOC_OUTPUT" $(find src -name "*.java")
+    javadoc -encoding UTF-8 -classpath "$CLASSPATH" -quiet -private -d "$DOC_OUTPUT" $(find src -name "*.java")
 fi
 
 java -cp "$CLASSPATH" Simulateur $@
