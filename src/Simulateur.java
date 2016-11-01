@@ -90,7 +90,7 @@ public class Simulateur {
 	/** Amplitude maximale **/
 	private float amplitudeMaximale = DEFAULT_MAX;
 	
-	/** Utilisation d'un transmetteur bruité **/
+	/** Utilisation d'un transmetteur bruite **/
 	private boolean hasSNR = false;
 	
 	/** Rapport signal sur bruit en Db **/
