@@ -30,9 +30,10 @@ public class DecoderNRZ extends Decoder {
 	@Override
 	public Information<Boolean> decode(Information<Float> msg) {
 		Information<Boolean> informationNRZ = new Information<Boolean>();
-
+		float seuil = calculSeuil(msg);
 		for (int i = 0; i < (msg.nbElements() / nbEchantillon); i++) {
-			if (msg.iemeElement(i * nbEchantillon) > super.calculSeuil(msg)) {
+			
+			if (msg.iemeElement(i * nbEchantillon) > seuil) {
 				informationNRZ.add(true);
 			} else {
 				informationNRZ.add(false);

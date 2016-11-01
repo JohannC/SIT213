@@ -33,7 +33,7 @@ public class DecoderNRZT extends Decoder {
 	@Override
 	public Information<Boolean> decode(Information<Float> msg) {
 		Information<Boolean> signalNRZT = new Information<Boolean>();
-
+		float seuil = calculSeuil(msg);
 		for (int i = 0; i < msg.nbElements(); i += nbEchantillon) {
 			float moyenne = 0.0f;
 			float somme = 0.0f;
@@ -46,7 +46,7 @@ public class DecoderNRZT extends Decoder {
 			}
 
 			moyenne = somme / t2;
-			signalNRZT.add(moyenne > super.calculSeuil(msg));
+			signalNRZT.add(moyenne > seuil);
 		}
 		return signalNRZT;
 	}

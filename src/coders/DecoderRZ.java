@@ -32,7 +32,7 @@ public class DecoderRZ extends Decoder {
 	@Override
 	public Information<Boolean> decode(Information<Float> msg) {
 		Information<Boolean> signalRZ = new Information<Boolean>();
-		
+		float seuil = calculSeuil(msg);
 		int i = 0;
 		while (i < msg.nbElements()) {
 			float moyenne = 0.0f;
@@ -46,7 +46,7 @@ public class DecoderRZ extends Decoder {
 
 			i += nbEchantillon;
 			moyenne = somme / (fin - debut);
-			signalRZ.add(moyenne > super.calculSeuil(msg));
+			signalRZ.add(moyenne > seuil);
 		}
 		return signalRZ;
 	}
