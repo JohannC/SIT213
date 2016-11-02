@@ -127,6 +127,9 @@ public class Simulateur {
 	 *             si un des arguments est incorrect
 	 */
 	private void preparerSimulateur() throws ArgumentsException {
+		if(hasSNR && !signalAnalogique){
+			signalAnalogique = true;
+		}
 		if (messageAleatoire) {
 			// preparation d'une transmission d'un message aléatoire de longueur
 			// messageString
@@ -162,7 +165,6 @@ public class Simulateur {
 			source.connecter(transmetteurLogique);
 			transmetteurLogique.connecter(destination);
 		}
-		
 		if (affichage) {
 			if (signalAnalogique) {
 				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
