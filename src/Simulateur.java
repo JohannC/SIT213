@@ -265,6 +265,7 @@ public class Simulateur {
 							"Valeur(s) parametre(s) -ampl invalide(s) : " + args[i+1] + " " + args[i + 2]);
 			} else if (args[i].matches("-snr")) {
 				if (args[i+1].matches("^([+-]?\\d*\\.?\\d*)$")) {
+					signalAnalogique = true;
 					snr = new Float(args[i+1]).floatValue();
 					hasSNR = true;
 					i++;
