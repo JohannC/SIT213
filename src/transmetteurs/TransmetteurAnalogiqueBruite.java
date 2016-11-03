@@ -1,5 +1,6 @@
 package transmetteurs;
 
+import canaux.CanalTrajetsMultiples;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
@@ -59,6 +60,19 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 			generateurBruit = new BruitBlancGaussien(puissanceBruit, seed);
 		
 		Information<Float> bruit = generateurBruit.generateurBruitBG(informationRecue.nbElements());
+		
+		////////////////////////////////////////////////////////////////////////////////:
+//		Information <Float> infoRetardee = new Information<Float>();
+//		Information <Float> infoRetardeeEtBruitee = new Information<Float>();
+//		
+//		CanalTrajetsMultiples canal = new CanalTrajetsMultiples(informationRecue, retard, attenuation);
+//		
+//		infoRetardee = canal.monInfoRetardee();
+//		
+//		infoRetardeeEtBruitee = signalBruite(informationRecue, infoRetardee);
+//		
+//		informationEmise = signalBruite(infoRetardeeEtBruitee, bruit);
+		/////////////////////////////////////////////////////////////////////////////////:
 		
 		informationEmise = signalBruite(informationRecue, bruit);
 		
