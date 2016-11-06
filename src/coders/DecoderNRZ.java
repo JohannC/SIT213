@@ -3,29 +3,30 @@ package coders;
 import information.Information;
 
 /**
- * DecoderNRZ permet de décoder un signal NRZ
- * 
+ * Classe DecoderNRZ qui herite de la classe abstraite Decoder.
+ * A pour but de decoder un signal NRZ en reception.
  */
 public class DecoderNRZ extends Decoder {
 	/**
-	 * Constructeur pour initialiser le décodeur NRZ
+	 * Constructeur de la classe DecoderNRZ.
+	 * Affecte les valeurs passees en argument aux attributs de la classe mere en appelant son constructeur.
 	 * 
 	 * @param min
-	 *            amplitude minimale
+	 * 		Amplitude minimale du signal de depart.
 	 * @param max
-	 *            amplitude maximale
+	 *      Amplitude maximale du signal de depart.
 	 * @param nbEchantillon
-	 *            nombre d'échantillons par bit
+	 *     	Nombre d'echantillons par bit.
 	 */
 	public DecoderNRZ(float min, float max, int nbEchantillon) {
 		super(min, max, nbEchantillon);
 	}
 
 	/**
-	 * Méthode pour décoder le signal NRZ Traransforme un Information<Float> en
-	 * Information<Boolean>
+	 * Methode publique qui decode le signal NRZ de type Information<Float> en un message de type Information<Boolean>.
 	 * 
-	 * @return informationNRZ le signal NRZ décodé
+	 * @return informationNRZ
+	 * 		Le signal NRZ decode de type Information<Boolean>.
 	 */
 	@Override
 	public Information<Boolean> decode(Information<Float> msg) {

@@ -11,7 +11,6 @@ import information.Information;
  * - max : amplitude maximale du signal analogique
  * - seuilDeDetection : seuil permettant de decider entre un bit '0' et un bit '1'.
  */
-
 public abstract class Decoder implements IDecoder {
 
 	protected int nbEchantillon;
