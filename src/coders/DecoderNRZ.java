@@ -7,6 +7,7 @@ import information.Information;
  * A pour but de decoder un signal NRZ en reception.
  */
 public class DecoderNRZ extends Decoder {
+	
 	/**
 	 * Constructeur de la classe DecoderNRZ.
 	 * Affecte les valeurs passees en argument aux attributs de la classe mere en appelant son constructeur.

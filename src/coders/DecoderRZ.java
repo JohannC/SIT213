@@ -3,32 +3,32 @@ package coders;
 import information.Information;
 
 /**
- * DecoderRZ permet de décoder un signal RZ
- * 
+ * Classe DecoderRZ qui herite de la classe abstraite Decoder.
+ * A pour but de decoder un signal RZ en reception.
  */
 public class DecoderRZ extends Decoder {
+	
 	/**
-	 * Constructeur pour initialiser le décodeur RZ
+	 * Constructeur de la classe DecoderRZ.
+	 * Affecte les valeurs passees en argument aux attributs de la classe mere en appelant son constructeur.
 	 * 
 	 * @param min
-	 *            amplitude minimale
+	 * 		Amplitude minimale du signal de depart.
 	 * @param max
-	 *            amplitude maximale
+	 *      Amplitude maximale du signal de depart.
 	 * @param nbEchantillon
-	 *            nombre d'échantillons par bit
+	 *     	Nombre d'echantillons par bit.
 	 */
-
 	public DecoderRZ(float min, float max, int nbEchantillon) {
 		super(min, max, nbEchantillon);
 	}
 
 	/**
-	 * Méthode pour décoder le signal RZ Traransforme un Information<Float> en
-	 * Information<Boolean>
+	 * Methode publique qui decode le signal RZ de type Information<Float> en un message de type Information<Boolean>.
 	 * 
-	 * @return informationRZ le signal RZ décodé
+	 * @return informationRZ
+	 * 		Le signal RZ decode de type Information<Boolean>.
 	 */
-
 	@Override
 	public Information<Boolean> decode(Information<Float> msg) {
 		Information<Boolean> signalRZ = new Information<Boolean>();
