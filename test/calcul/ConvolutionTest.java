@@ -73,14 +73,14 @@ public class ConvolutionTest {
 		for (int i = 0; i < reponseDuFiltreMatlab.length; i++)
 			reponseDuFiltre.add(reponseDuFiltreMatlab[i]);
 
-		Information<Float> information = Convolution.convolution(informationAConvoluer, reponseImpulsionnelle);
+		Information<Float> information = FiltreAdapte.convolution(informationAConvoluer, reponseImpulsionnelle);
 
 //		for (int i = 0; i < reponseDuFiltreMatlab.length; i++)
 //			System.out.println(reponseDuFiltre.iemeElement(i)
 //					- information.iemeElement(i));
 		
 		for (int i = 0; i < reponseDuFiltreMatlab.length; i++)
-			collector.checkThat(Convolution.convolution(informationAConvoluer,reponseImpulsionnelle).iemeElement(i), is(reponseDuFiltre.iemeElement(i)));
+			collector.checkThat(FiltreAdapte.convolution(informationAConvoluer,reponseImpulsionnelle).iemeElement(i), is(reponseDuFiltre.iemeElement(i)));
 
 	}
 }
