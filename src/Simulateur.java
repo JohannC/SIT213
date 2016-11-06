@@ -282,7 +282,9 @@ public class Simulateur {
 							"Valeur(s) parametre(s) -snr invalide(s) : " + args[i+1]);
 			} else if(args[i].matches("-ti")) {
 				if(args[i+1].matches("") && args[i+2].matches("")) {
-					
+					decalageTemporel = new Integer(args[i+1]).intValue();
+					amplitudeRelative = new Float(args[i+2]).floatValue();
+					signalAnalogique = true;
 				}
 			}
 			
