@@ -302,9 +302,15 @@ public class Simulateur {
 				if (args[i + 1].matches("^\\s*-?[0-9]{1,10}\\s*$") && args[i + 2].matches("^([+-]?\\d*\\.?\\d*)$")) {
 					decalageTemporel = new Integer(args[i + 1]).intValue();
 					amplitudeRelative = new Float(args[i + 2]).floatValue();
+					if(amplitudeRelative < 0.0 || amplitudeRelative>1.0){
+						throw new ArgumentsException("Valeur parametre -ti invalide, l'attenuation du retard doit être compris entre 0 et 1");
+					}
 					signalAnalogique = true;
 					trajetsMultiples = true;
+					i += 2;
 				}
+				else
+					throw new ArgumentsException("Valeur(s) parametre(s) -ti invalide(s) : " + args[i + 1] + " " + args[i + 2]);
 			}
 
 			else
