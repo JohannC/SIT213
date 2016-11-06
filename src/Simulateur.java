@@ -96,6 +96,12 @@ public class Simulateur {
 	/** Rapport signal sur bruit en Db **/
 	private float snr;
 	
+	/** Decalage temporel (en nombre d'echantillons entre le trajet indirect et le trajet direct **/
+	private int decalageTemporel = 0;
+	
+	/** Amplitude relative du signal du trajet indirect par rapport à celle du signal du trajet direct **/
+	private float amplitudeRelative = 0.0f;
+	
 	
 
 	/**
@@ -274,6 +280,10 @@ public class Simulateur {
 				} else
 					throw new ArgumentsException(
 							"Valeur(s) parametre(s) -snr invalide(s) : " + args[i+1]);
+			} else if(args[i].matches("-ti")) {
+				if(args[i+1].matches("") && args[i+2].matches("")) {
+					
+				}
 			}
 			
 			else
