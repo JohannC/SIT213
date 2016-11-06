@@ -15,7 +15,7 @@ public class FiltreAdapte {
 	 * 		Le signal en entree de type Information<Float>.
 	 *            
 	 * @param reponseImpulsionnelle
-	 * 		Réponse impulsionnelle du filtre de type Information<Float>.
+	 * 		Reponse impulsionnelle du filtre de type Information<Float>.
 	 * 
 	 * @return reponseDuFiltre
 	 * 		Le produit de convolution des deux signaux de type Information<Float>
@@ -52,7 +52,7 @@ public class FiltreAdapte {
 	}
 	
 	/**
-	 * Méthode de classe qui s'occupe de calculer la somme de deux nombres de type float.
+	 * Methode de classe qui s'occupe de calculer la somme de deux nombres de type float.
 	 * 
 	 * @param nombre1
 	 * 		Premier nombre de type float.
@@ -66,7 +66,7 @@ public class FiltreAdapte {
 	}
 	
 	/**
-	 * Méthode de classe qui s'occupe de calculer le produit de deux nombres de type float.
+	 * Methode de classe qui s'occupe de calculer le produit de deux nombres de type float.
 	 * 
 	 * @param nombre1
 	 * 		Premier nombre de type float.
