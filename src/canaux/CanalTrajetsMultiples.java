@@ -14,11 +14,15 @@ public class CanalTrajetsMultiples {
 	private float attenuation;
 	
 	/**
-	 * Construction de la classe CanalTrajetsMultiples
-	 * S'occupe d'affecter à ses attributs les parametres associes
-	 * @param information le signal recu de type Information<Float>
-	 * @param retard 
+	 * Constructeur de la classe CanalTrajetsMultiples.
+	 * Aaffecte a ses attributs les parametres associes suivant :
+	 * 
+	 * @param information 
+	 * 		Le signal recu de type Information<Float>.
+	 * @param retard
+	 * 		Le retard qui sera attribue au nouveau signal. 
 	 * @param attenuation
+	 * 		L'attenuation du nouveau signal par rapport a l'original.
 	 */
 	public void CanalTrajetsMultiple(Information<Float> information, int retard, float attenuation){
 		informationRecue = information;
@@ -27,8 +31,10 @@ public class CanalTrajetsMultiples {
 	}
 
 	/**
-	 * Methode qui s'occupe de creer le signal retarde et attenue
+	 * Methode publique qui s'occupe de creer le signal retarde et attenue.
 	 * 
+	 * @return informationRetardee
+	 * 		Le nouveau signal retarde et attenue de type Information<Float>.
 	 */
 	public Information<Float> monInfoRetardee(){
 		informationRetardee = new Information<Float>();
