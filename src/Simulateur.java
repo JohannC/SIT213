@@ -281,7 +281,7 @@ public class Simulateur {
 					throw new ArgumentsException(
 							"Valeur(s) parametre(s) -snr invalide(s) : " + args[i+1]);
 			} else if(args[i].matches("-ti")) {
-				if(args[i+1].matches("") && args[i+2].matches("")) {
+				if(args[i+1].matches("^\\s*-?[0-9]{1,10}\\s*$") && args[i+2].matches("^([+-]?\\d*\\.?\\d*)$")) {
 					decalageTemporel = new Integer(args[i+1]).intValue();
 					amplitudeRelative = new Float(args[i+2]).floatValue();
 					signalAnalogique = true;
