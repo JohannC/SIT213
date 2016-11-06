@@ -102,6 +102,9 @@ public class Simulateur {
 	/** Amplitude relative du signal du trajet indirect par rapport à celle du signal du trajet direct **/
 	private float amplitudeRelative = 0.0f;
 	
+	/** Indique si on a un trajet multiple **/
+	private boolean trajetsMultiples = false;
+	
 	
 
 	/**
@@ -285,6 +288,7 @@ public class Simulateur {
 					decalageTemporel = new Integer(args[i+1]).intValue();
 					amplitudeRelative = new Float(args[i+2]).floatValue();
 					signalAnalogique = true;
+					trajetsMultiples = true;
 				}
 			}
 			
