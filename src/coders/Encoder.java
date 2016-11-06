@@ -1,8 +1,12 @@
 package coders;
 
 /**
- * La classe Encoder permet de Encoder l'information en réception
- *
+ * Classe abstraite Encoder qui implemente l'interface IEncoder.
+ * A pour but d'encoder l'information en emission.
+ * Factorise les attributs suivants :
+ * - nbEchantillon : nombre d'echantillons par bit
+ * - min : amplitude minimale du signal analogique
+ * - max : amplitude maximale du signal analogique.
  */
 public abstract class Encoder implements IEncoder {
 
@@ -11,14 +15,15 @@ public abstract class Encoder implements IEncoder {
 	protected float max;
 
 	/**
-	 * Construteur de la classe Encoder
+	 * Constructeur de la classe Encoder.
+	 * Affecte les valeurs passees en argument aux attributs de la classe associes.
 	 * 
 	 * @param min
-	 *            amplitude minimale
+	 * 		Amplitude minimale du signal de depart.
 	 * @param max
-	 *            amplitude maximale
+	 *     	Amplitude maximale du signal de depart.
 	 * @param nbEchantillon
-	 *            nombre d'échantillons par bit
+	 *    	Nombre d'echantillons par bit.
 	 */
 	public Encoder(float min, float max, int nbEchantillon) {
 		this.nbEchantillon = nbEchantillon;

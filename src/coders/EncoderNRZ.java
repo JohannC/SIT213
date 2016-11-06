@@ -3,33 +3,34 @@ package coders;
 import information.Information;
 
 /**
- * EncoderNRZ permet de coder un signal NRZ
- * 
+ * Classe EncoderNRZ qui herite de la classe abstraite Encoder.
+ * A pour but d'encoder un signal NRZ en emission.
  */
 
 public class EncoderNRZ extends Encoder {
 
 	/**
-	 * Constructeur pour initialiser le Codeur NRZ
+	 * Constructeur de la classe EncoderNRZ.
+	 * Affecte les valeurs passees en argument aux attributs de la classe mere en appelant son constructeur.
 	 * 
 	 * @param min
-	 *            amplitude minimale
+	 * 		Amplitude minimale du signal de depart.
 	 * @param max
-	 *            amplitude maximale
+	 *      Amplitude maximale du signal de depart.
 	 * @param nbEchantillon
-	 *            nombre d'échantillons par bit
+	 *     	Nombre d'echantillons par bit.
 	 */
 	public EncoderNRZ(float min, float max, int nbEchantillon) {
 		super(min, max, nbEchantillon);
 	}
 
 	/**
-	 * Méthode pour Coder le signal NRZ Traransforme un Information<Boolean> en
-	 * Information<Float>
+	 * Methode publique qui encode un message de type Information<Boolean> en un message de type Information<Float>.
+	 * L'encodage respecte les normes d'un signal NRZ.
 	 * 
-	 * @return informationNRZ : le signal NRZ encodé
+	 * @return informationNRZ
+	 * 		Le signal NRZ encode de type Information<Float>.
 	 */
-
 	@Override
 	public Information<Float> encode(Information<Boolean> msg) {
 		Information<Float> informationNRZ = new Information<Float>();
