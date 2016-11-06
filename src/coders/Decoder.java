@@ -3,13 +3,13 @@ package coders;
 import information.Information;
 
 /**
- * La classe Decoder permet de décoder l'information en réception
- * Cette classe implémente l'interface IDecoder.
- * Il s'agit d'une classe abstraite qui s'occupe de factoriser les attributs suivants :
- * - nbEchantillon : nombre d'échantillons par bit
+ * Classe abstraite Decoder qui implemente l'interface IDecoder.
+ * A pour but de decoder l'information en reception.
+ * Factorise les attributs suivants :
+ * - nbEchantillon : nombre d'echantillons par bit
  * - min : amplitude minimale du signal analogique
  * - max : amplitude maximale du signal analogique
- * - seuilDeDetection : seuil permettant de décider entre un bit '0' et un bit '1'
+ * - seuilDeDetection : seuil permettant de decider entre un bit '0' et un bit '1'.
  */
 
 public abstract class Decoder implements IDecoder {
@@ -21,15 +21,15 @@ public abstract class Decoder implements IDecoder {
 
 	/**
 	 * Constructeur de la classe Decoder.
-	 * S'occupe d'attribuer les valeurs passées en arguments aux attributs de la classe.
-	 * Calcule le seuil de détection à partir des valeurs extrêmes du signal analogique.
+	 * Affecte les valeurs passees en argument aux attributs de la classe associes.
+	 * Calcule le seuil de detection a partir des valeurs extremes du signal analogique.
 	 * 
 	 * @param min
-	 *            amplitude minimale
+	 * 		Amplitude minimale du signal de depart.
 	 * @param max
-	 *            amplitude maximale
+	 *     	Amplitude maximale du signal de depart.
 	 * @param nbEchantillon
-	 *            nombre d'échantillons par bit
+	 *    	Nombre d'echantillons par bit.
 	 */
 	public Decoder(float min, float max, int nbEchantillon) {
 		this.nbEchantillon = nbEchantillon;
@@ -38,7 +38,15 @@ public abstract class Decoder implements IDecoder {
 		seuilDeDetection = (Math.abs(Math.abs(max) - Math.abs(min))) / 2 + min;
 	}
 
-	//Creation d'un nouveau seuil : moyenne signal/nbEchantillons
+	/**
+	 * Methode protected qui retourne le seuil de detection selon le calcul suivant : 
+	 * moyenne du signal / nbEchantillons.
+	 * 
+	 * @param msg
+	 * 		Message en entree du decodeur.
+	 * @return seuil
+	 * 		Seuil de detection calcule.
+	 */
 	protected float calculSeuil(Information<Float> msg){
 		float seuil, sommeMsg = 0;
 		for (float e : msg)
