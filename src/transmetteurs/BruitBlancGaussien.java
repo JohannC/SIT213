@@ -8,8 +8,9 @@ import java.util.Random;
 import information.Information;
 
 /**
- * @author user
- *
+ * Classe BruitBlancGaussien
+ * Genere a partir d'une puissance donnee un bruit blanc gaussien
+ * Peut prendre en parametre une graine 
  */
 public class BruitBlancGaussien {
 
@@ -18,12 +19,24 @@ public class BruitBlancGaussien {
 	private Integer seed = null;
 	Information<Float> informationBuitBG;
 	
+	/**
+	 * Constructeur de la classe BruitBlancGaussien
+	 * Affecte la racine de la puissance du bruit a son attribut associe 
+	 * @param puissanceBruit 
+	 */
 	public BruitBlancGaussien (double puissanceBruit){
 		
 		this.puissanceBruitSqrt =  Math.sqrt(puissanceBruit);
 		informationBuitBG = new Information<Float>();
 	}
 	
+	/**
+	 * Constructeur de la classe BruitBlancGaussien
+	 * Affecte la racine de la puissance du bruit a son attribut associe
+	 * ainsi que la valeur de la graine 
+	 * @param puissanceBruit
+	 * @param seed graine 
+	 */
 	public BruitBlancGaussien (double puissanceBruit, Integer seed){
 		
 		this.puissanceBruitSqrt = Math.sqrt(puissanceBruit);
@@ -31,9 +44,9 @@ public class BruitBlancGaussien {
 		informationBuitBG = new Information<Float>();
 	}
 	/**
-	 * Genere un bruit Blanc Gaussien 
-	 * @param tailleBruitage
-	 * @return
+	 * Méthode publique qui qenere un bruit Blanc Gaussien de type Information<Float>
+	 * @param tailleBruitage taille de l'information
+	 * @return bruit blanc gaussien
 	 */
 	public Information<Float> generateurBruitBG (int tailleBruitage){
 		Random a;
