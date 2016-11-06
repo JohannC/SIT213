@@ -3,28 +3,26 @@ package calcul;
 import information.Information;
 
 /**
- * Cette classe encapsule la méthode statique qui réalise le calcul du produit
- * de convolution de deux signaux.
- * 
- * @author Lahoucine AMHOUCHE
+ * Classe FiltreAdapte
+ * Encapsule la methode statique qui realise le calcul du produit de convolution de deux signaux.
  */
 public class FiltreAdapte {
 	/**
-	 * Cette méthode réalise le calcul du produit de convolution de deux
-	 * signaux. Pour que le calcul puisse être effectué, les deux signaux à
-	 * convoluer doivent avoir le même pas de discrétisation.
+	 * Cette methode realise le calcul du produit de convolution de deux signaux.
+	 * Les deux signaux a convoluer doivent avoir le meme pas de discretisation.
 	 * 
 	 * @param informationRecu
-	 *            Le premier Information<Float> à convoluer.
+	 * 		Le signal en entree de type Information<Float>.
+	 *            
 	 * @param reponseImpulsionnelle
-	 *            Le deuxième Information<Float> à convoluer.
+	 * 		Reponse impulsionnelle du filtre de type Information<Float>.
 	 * 
-	 * @return Le Information<Float> représentant le produit de convolution des
-	 *         deux signaux.
+	 * @return reponseDuFiltre
+	 * 		Le produit de convolution des deux signaux de type Information<Float>
 	 * 
 	 * @throws BadStepsException
-	 *             Si les deux signaux à convoluer ne présentent pas le même pas
-	 *             de discrétisation.
+	 *      Erreur renvoyee si les deux signaux a convoluer ne presentent pas
+	 *      le meme pas de discretisation.
 	 */
 	public static Information<Float> convolution(
 			Information<Float> informationRecu,
@@ -52,13 +50,32 @@ public class FiltreAdapte {
 
 		return reponseDuFiltre;
 	}
-
-	public static float somme(float nombre1, float nombre2) {
-
+	
+	/**
+	 * Methode de classe qui s'occupe de calculer la somme de deux nombres de type float.
+	 * 
+	 * @param nombre1
+	 * 		Premier nombre de type float.
+	 * @param nombre2
+	 * 		Seconde nombre de type float.
+	 * @return somme
+	 * 		Somme des deux nombres de type float.
+	 */
+	private static float somme(float nombre1, float nombre2) {
 		return (nombre1 + nombre2);
 	}
-
-	public static float produit(float nombre1, float nombre2) {
+	
+	/**
+	 * Methode de classe qui s'occupe de calculer le produit de deux nombres de type float.
+	 * 
+	 * @param nombre1
+	 * 		Premier nombre de type float.
+	 * @param nombre2
+	 * 		Seconde nombre de type float.
+	 * @return somme
+	 * 		Somme des deux nombres de type float.
+	 */
+	private static float produit(float nombre1, float nombre2) {
 
 		return (nombre1 * nombre2);
 	}

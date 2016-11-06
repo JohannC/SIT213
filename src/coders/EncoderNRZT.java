@@ -3,32 +3,33 @@ package coders;
 import information.Information;
 
 /**
- * EncoderNRZT permet de coder un signal NRZT
- * 
+ * Classe EncoderNRZT qui herite de la classe abstraite Encoder.
+ * A pour but d'encoder un signal NRZT en emission.
  */
 
 public class EncoderNRZT extends Encoder {
 
 	/**
-	 * 
-	 * Constructeur pour initialiser le Codeur NRZT
+	 * Constructeur de la classe EncoderNRZT.
+	 * Affecte les valeurs passees en argument aux attributs de la classe mere en appelant son constructeur.
 	 * 
 	 * @param min
-	 *            amplitude minimale
+	 * 		Amplitude minimale du signal de depart.
 	 * @param max
-	 *            amplitude maximale
+	 *      Amplitude maximale du signal de depart.
 	 * @param nbEchantillon
-	 *            nombre d'échantillons par bit
+	 *     	Nombre d'echantillons par bit.
 	 */
-
 	public EncoderNRZT(float min, float max, int nbEchantillon) {
 		super(min, max, nbEchantillon);
 	}
 
 	/**
-	 * Encode le signal NRZT
+	 * Methode publique qui encode un message de type Information<Boolean> en un message de type Information<Float>.
+	 * L'encodage respecte les normes d'un signal NRZT.
 	 * 
-	 * @return le signal NRZT
+	 * @return informationNRZT
+	 * 		Le signal NRZT encode de type Information<Float>.
 	 */
 	@Override
 	public Information<Float> encode(Information<Boolean> msg) {
@@ -53,13 +54,13 @@ public class EncoderNRZT extends Encoder {
 	}
 
 	/**
-	 * Encode chaque bit du signal NRZT, chaque bit est constitué de
-	 * nbEchantillons
+	 * Methode privee qui s'occupe d'encoder un bit en un signal de type Information<Float>.
+	 * L'encodage suit les normes d'un signal NRZT et chaque bit est constitue de nbEchantillons.
 	 * 
 	 * @param signalNRZT
-	 *            le signal NRZT
+	 * 		Le signal NRZT qui conserve tous les bits encodes en Information<Float>.
 	 * @param bit
-	 *            Un bit du signal NRZT
+	 * 		Le bit que l'on souhaite encode.
 	 */
 	private void encodageBit(Information<Float> signalNRZT, Boolean bit, Boolean precedentBit, Boolean nextBit) {
 		int t1 = nbEchantillon / 3;
