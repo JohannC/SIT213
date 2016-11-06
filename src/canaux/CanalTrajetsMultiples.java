@@ -9,7 +9,7 @@ public class CanalTrajetsMultiples {
 	private int retard;
 	private float attenuation;
 	
-	public void CanalTrajetsMultiple(Information<Float> information, int retard, float attenuation){
+	public CanalTrajetsMultiples(Information<Float> information, int retard, float attenuation){
 		informationRecue = information;
 		this.retard = retard;
 		this.attenuation = attenuation;

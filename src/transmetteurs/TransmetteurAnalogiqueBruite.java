@@ -1,5 +1,7 @@
 package transmetteurs;
 
+import javax.rmi.CORBA.Util;
+
 import canaux.CanalTrajetsMultiples;
 import destinations.DestinationInterface;
 import information.Information;
@@ -13,6 +15,10 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
 	private float snrDB;
 	private int seed = 0;
+	private int retard;
+	private float attenuation;
+	private boolean hasdelay = false;
+	
 	
 	/** 
 	 * Constructeur de la classe
@@ -32,8 +38,24 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		this.seed = seed;
 	}
 	
+	public TransmetteurAnalogiqueBruite(float snrDB, int seed, int retard, float attenuation) {
+		this.snrDB = snrDB;
+		this.seed = seed;
+		this.retard = retard;
+		this.attenuation = attenuation;
+		hasdelay = true;
+		
+	}
+	public TransmetteurAnalogiqueBruite(float snr, int decalageTemporel, float amplitudeRelative) {
+		// TODO Auto-generated constructor stub
+		snrDB = snr;
+		retard = decalageTemporel;
+		attenuation = amplitudeRelative;
+		hasdelay = true;
+	}
+
 	/**
-	 * M�thode pour recevoir l'information
+	 * Méthode pour recevoir l'information
 	 */
 	@Override
 	public void recevoir(Information<Float> information) throws InformationNonConforme {
@@ -44,7 +66,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
 	/**
 	 * Methode pour emettre le signal
-	 * S'occupe d'appeler les methodes permettant de g�n�rer un bruit
+	 * S'occupe d'appeler les methodes permettant de générer un bruit
 	 * et de l'additionner au signal en entree
 	 */
 	@Override
@@ -61,20 +83,14 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		
 		Information<Float> bruit = generateurBruit.generateurBruitBG(informationRecue.nbElements());
 		
-		////////////////////////////////////////////////////////////////////////////////:
-//		Information <Float> infoRetardee = new Information<Float>();
-//		Information <Float> infoRetardeeEtBruitee = new Information<Float>();
-//		
-//		CanalTrajetsMultiples canal = new CanalTrajetsMultiples(informationRecue, retard, attenuation);
-//		
-//		infoRetardee = canal.monInfoRetardee();
-//		
-//		infoRetardeeEtBruitee = signalBruite(informationRecue, infoRetardee);
-//		
-//		informationEmise = signalBruite(infoRetardeeEtBruitee, bruit);
-		/////////////////////////////////////////////////////////////////////////////////:
-		
-		informationEmise = signalBruite(informationRecue, bruit);
+		if(hasdelay) {
+			Information<Float> signalRetarde;
+			signalRetarde = Utils.enableTrajetMultiple(informationRecue, retard, attenuation);
+			informationEmise = Utils.additionnerSignaux(signalRetarde, bruit); 
+		}
+		else {
+		informationEmise = Utils.additionnerSignaux(informationRecue, bruit);
+		}
 		
 		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
 			destinationConnectee.recevoir(informationEmise);
@@ -82,7 +98,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 	}
 	
 	/**
-	 * M�thode pour calculer la puissance de bruit necessaire
+	 * Méthode pour calculer la puissance de bruit necessaire
 	 * a partir du SNR demande par l'utilisateur
 	 * @param informationRecue
 	 * @param snrDB 
@@ -97,19 +113,5 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		float snr = (float) Math.pow(10,(snrDB/10));
 		pBruit = (float) (pSignal/snr);
 		return pBruit;
-	}
-	
-	/**
-	 * Methode pour additionner l'information et le bruit
-	 * Les deux doivent etre de type float
-	 * @param information
-	 * @param bruit
-	 * @return information bruite
-	 */
-	private Information<Float> signalBruite(Information<Float> information, Information<Float> bruit) {
-		Information<Float> signal = new Information<Float> ();
-		for (int i = 0 ; i < information.nbElements() ; i++)
-			signal.add(information.iemeElement(i) + bruit.iemeElement(i));
-		return signal;
 	}
 }

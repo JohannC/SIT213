@@ -10,6 +10,20 @@ import information.InformationNonConforme;
  *
  */
 public class TransmetteurAnalogiqueParfait extends Transmetteur<Float, Float> {
+	private int retard;
+	private float attenuation;
+	private boolean hasdelay = false;
+
+	public TransmetteurAnalogiqueParfait() {
+		super();
+	}
+
+	public TransmetteurAnalogiqueParfait(int retard, float attenuation) {
+		super();
+		this.retard = retard;
+		this.attenuation = attenuation;
+		hasdelay = true;
+	}
 
 	/**
 	 * Méthode pour reçevoir une information (un signal)
@@ -25,10 +39,14 @@ public class TransmetteurAnalogiqueParfait extends Transmetteur<Float, Float> {
 	 */
 	@Override
 	public void emettre() throws InformationNonConforme {
-		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-			destinationConnectee.recevoir(informationRecue);
+		if (hasdelay) {
+			this.informationEmise = Utils.enableTrajetMultiple(informationRecue, retard, attenuation);
+		} else {
+			this.informationEmise = informationRecue;
 		}
-		this.informationEmise = informationRecue;
+		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+			destinationConnectee.recevoir(informationEmise);
+		}
 	}
 
 }

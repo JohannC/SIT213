@@ -89,23 +89,27 @@ public class Simulateur {
 
 	/** Amplitude maximale **/
 	private float amplitudeMaximale = DEFAULT_MAX;
-	
+
 	/** Utilisation d'un transmetteur bruite **/
 	private boolean hasSNR = false;
-	
+
 	/** Rapport signal sur bruit en Db **/
 	private float snr;
-	
-	/** Decalage temporel (en nombre d'echantillons entre le trajet indirect et le trajet direct **/
+
+	/**
+	 * Decalage temporel (en nombre d'echantillons entre le trajet indirect et
+	 * le trajet direct
+	 **/
 	private int decalageTemporel = 0;
-	
-	/** Amplitude relative du signal du trajet indirect par rapport à celle du signal du trajet direct **/
+
+	/**
+	 * Amplitude relative du signal du trajet indirect par rapport à celle du
+	 * signal du trajet direct
+	 **/
 	private float amplitudeRelative = 0.0f;
-	
+
 	/** Indique si on a un trajet multiple **/
 	private boolean trajetsMultiples = false;
-	
-	
 
 	/**
 	 * Le constructeur de Simulateur construit une chaîne de transmission
@@ -136,7 +140,7 @@ public class Simulateur {
 	 *             si un des arguments est incorrect
 	 */
 	private void preparerSimulateur() throws ArgumentsException {
-		if(hasSNR && !signalAnalogique){
+		if (hasSNR && !signalAnalogique) {
 			signalAnalogique = true;
 		}
 		if (messageAleatoire) {
@@ -153,15 +157,27 @@ public class Simulateur {
 			destination = new DestinationFinale();
 		}
 		if (signalAnalogique) {
-			if(hasSNR){
-				if(aleatoireAvecGerme){
-					transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+			if (!trajetsMultiples) {
+				if (hasSNR) {
+					if (aleatoireAvecGerme) {
+						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+					} else {
+						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+					}
+				} else {
+					transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
 				}
-				else {
-					transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+			}
+			if (trajetsMultiples) {
+				if (hasSNR) {
+					if (aleatoireAvecGerme) {
+						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed, decalageTemporel, amplitudeRelative);
+					} else {
+						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, decalageTemporel, amplitudeRelative);
+					}
+				} else {
+					transmetteurAnalogique = new TransmetteurAnalogiqueParfait(decalageTemporel, amplitudeRelative);
 				}
-			} else {
-				transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
 			}
 			emetteur = new Emetteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
 			recepteur = new Recepteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
@@ -261,37 +277,36 @@ public class Simulateur {
 			} else if (args[i].matches("-ampl")) {
 				float min;
 				float max;
-				if (args[i+1].matches("^([+-]?\\d*\\.?\\d*)$") && args[i+2].matches("^([+-]?\\d*\\.?\\d*)$")) {
-					min = new Float(args[i+1]).floatValue();
-					max = new Float(args[i+2]).floatValue();
+				if (args[i + 1].matches("^([+-]?\\d*\\.?\\d*)$") && args[i + 2].matches("^([+-]?\\d*\\.?\\d*)$")) {
+					min = new Float(args[i + 1]).floatValue();
+					max = new Float(args[i + 2]).floatValue();
 					if (min < max) {
 						amplitudeMaximale = max;
 						amplitudeMinimale = min;
 						signalAnalogique = true;
-						i +=2;
+						i += 2;
 					} else
 						throw new ArgumentsException("La valeur minimale doit être inférieure à la valeur maximale");
 				} else
 					throw new ArgumentsException(
-							"Valeur(s) parametre(s) -ampl invalide(s) : " + args[i+1] + " " + args[i + 2]);
+							"Valeur(s) parametre(s) -ampl invalide(s) : " + args[i + 1] + " " + args[i + 2]);
 			} else if (args[i].matches("-snr")) {
-				if (args[i+1].matches("^([+-]?\\d*\\.?\\d*)$")) {
+				if (args[i + 1].matches("^([+-]?\\d*\\.?\\d*)$")) {
 					signalAnalogique = true;
-					snr = new Float(args[i+1]).floatValue();
+					snr = new Float(args[i + 1]).floatValue();
 					hasSNR = true;
 					i++;
 				} else
-					throw new ArgumentsException(
-							"Valeur(s) parametre(s) -snr invalide(s) : " + args[i+1]);
-			} else if(args[i].matches("-ti")) {
-				if(args[i+1].matches("^\\s*-?[0-9]{1,10}\\s*$") && args[i+2].matches("^([+-]?\\d*\\.?\\d*)$")) {
-					decalageTemporel = new Integer(args[i+1]).intValue();
-					amplitudeRelative = new Float(args[i+2]).floatValue();
+					throw new ArgumentsException("Valeur(s) parametre(s) -snr invalide(s) : " + args[i + 1]);
+			} else if (args[i].matches("-ti")) {
+				if (args[i + 1].matches("^\\s*-?[0-9]{1,10}\\s*$") && args[i + 2].matches("^([+-]?\\d*\\.?\\d*)$")) {
+					decalageTemporel = new Integer(args[i + 1]).intValue();
+					amplitudeRelative = new Float(args[i + 2]).floatValue();
 					signalAnalogique = true;
 					trajetsMultiples = true;
 				}
 			}
-			
+
 			else
 				throw new ArgumentsException("Option invalide :" + args[i]);
 		}
@@ -323,10 +338,10 @@ public class Simulateur {
 			if (infoSource.iemeElement(i) != infoDestination.iemeElement(i))
 				nbErreur++;
 		}
-		float tauxErreurBinaire = (float)nbErreur / (float)infoSource.nbElements();
-		
+		float tauxErreurBinaire = (float) nbErreur / (float) infoSource.nbElements();
+
 		if (tauxErreurBinaire > 0.5 && tauxErreurBinaire <= 1)
-			tauxErreurBinaire = 1 - tauxErreurBinaire ;
+			tauxErreurBinaire = 1 - tauxErreurBinaire;
 		return tauxErreurBinaire;
 	}
 
