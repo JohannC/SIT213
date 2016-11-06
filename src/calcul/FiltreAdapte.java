@@ -8,7 +8,7 @@ import information.Information;
  * 
  * @author Lahoucine AMHOUCHE
  */
-public class Convolution {
+public class FiltreAdapte {
 	/**
 	 * Cette méthode réalise le calcul du produit de convolution de deux
 	 * signaux. Pour que le calcul puisse être effectué, les deux signaux à
