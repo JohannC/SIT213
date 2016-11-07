@@ -109,7 +109,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		float sommeCarreSignal = 0f;
 		for (float info : informationRecue)
 			sommeCarreSignal += Math.pow(info,2); 
-		float pSignal= sommeCarreSignal / informationRecue.nbElements();
+		float pSignal= sommeCarreSignal / (informationRecue.nbElements()*10);
 		float snr = (float) Math.pow(10,(snrDB/10));
 		pBruit = (float) (pSignal/snr);
 		return pBruit;
