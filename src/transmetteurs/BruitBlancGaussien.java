@@ -44,7 +44,7 @@ public class BruitBlancGaussien {
 		informationBuitBG = new Information<Float>();
 	}
 	/**
-	 * Méthode publique qui qenere un bruit Blanc Gaussien de type Information<Float>
+	 * Methode publique qui qenere un bruit Blanc Gaussien de type Information<Float>
 	 * @param tailleBruitage taille de l'information
 	 * @return bruit blanc gaussien
 	 */
