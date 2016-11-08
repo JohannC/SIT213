@@ -23,29 +23,29 @@ public class TransducteurReception extends Transmetteur<Boolean, Boolean> {
 
 	private void codageDeCanal() {
 		Information<Boolean> info = new Information<Boolean>();
-		for(int i=0 ; i <= informationRecue.nbElements(); i+=3) {
-			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+1)== false ) {
+		for(int i = 0 ; i < informationRecue.nbElements() ; i += 3) {
+			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+2)== false ) {
 				info.add(false);
 			}
-			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+1)== true ) {
+			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+2)== true ) {
 				info.add(true);
 			}
-			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+1)== false ) {
+			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+2)== false ) {
 				info.add(false);
 			}
-			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+1)== true ) {
+			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+2)== true ) {
 				info.add(false);
 			}
-			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+1)== false ) {
+			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+2)== false ) {
 				info.add(true);
 			}
-			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+1)== true ) {
+			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+2)== true ) {
 				info.add(true);
 			}
-			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+1)== false ) {
+			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+2)== false ) {
 				info.add(false);
 			}
-			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+1)== true ) {
+			if(informationRecue.iemeElement(i) == true && informationRecue.iemeElement(i+1)== true && informationRecue.iemeElement(i+2)== true ) {
 				info.add(true);
 			}
 		}
