@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.Random;
 
 import information.Information;
+import utils.FiltreAdapte;
 
 import org.junit.Before;
 import org.junit.Rule;

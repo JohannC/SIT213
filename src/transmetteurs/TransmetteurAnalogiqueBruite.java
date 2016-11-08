@@ -2,9 +2,9 @@ package transmetteurs;
 
 import javax.rmi.CORBA.Util;
 
-import Utils.GenerateurBruitBlancGaussien;
-import Utils.RetardateurSignal;
-import Utils.AdditionneurSignaux;
+import utils.GenerateurBruitBlancGaussien;
+import utils.RetardateurSignal;
+import utils.AdditionneurSignaux;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;

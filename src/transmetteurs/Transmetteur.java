@@ -6,8 +6,8 @@ import information.*;
 
 import java.util.*;
 
-import Utils.AdditionneurSignaux;
-import Utils.RetardateurSignal;
+import utils.AdditionneurSignaux;
+import utils.RetardateurSignal;
 
 /**
  * Classe Abstraite d'un composant transmetteur d'informations dont les éléments

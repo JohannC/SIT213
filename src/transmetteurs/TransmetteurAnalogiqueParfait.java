@@ -1,7 +1,7 @@
 package transmetteurs;
 
-import Utils.AdditionneurSignaux;
-import Utils.RetardateurSignal;
+import utils.AdditionneurSignaux;
+import utils.RetardateurSignal;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
