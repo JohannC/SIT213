@@ -6,6 +6,9 @@ import information.*;
 
 import java.util.*;
 
+import Utils.AdditionneurSignaux;
+import Utils.RetardateurSignal;
+
 /**
  * Classe Abstraite d'un composant transmetteur d'informations dont les éléments
  * sont de type R en entrée et de type E en sortie; l'entrée du transmetteur
@@ -92,4 +95,5 @@ public abstract class Transmetteur<R, E> implements DestinationInterface<R>, Sou
 	 * émet l'information construite par le transmetteur
 	 */
 	public abstract void emettre() throws InformationNonConforme;
+	
 }

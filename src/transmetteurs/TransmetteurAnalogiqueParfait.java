@@ -1,5 +1,7 @@
 package transmetteurs;
 
+import Utils.AdditionneurSignaux;
+import Utils.RetardateurSignal;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
@@ -40,7 +42,8 @@ public class TransmetteurAnalogiqueParfait extends Transmetteur<Float, Float> {
 	@Override
 	public void emettre() throws InformationNonConforme {
 		if (hasdelay) {
-			this.informationEmise = Utils.enableTrajetMultiple(informationRecue, retard, attenuation);
+			Information<Float> signalRetarde = RetardateurSignal.getSignalRetardee(informationRecue, retard, attenuation);
+			informationEmise = AdditionneurSignaux.additionnerSignaux(informationRecue, signalRetarde);			
 		} else {
 			this.informationEmise = informationRecue;
 		}

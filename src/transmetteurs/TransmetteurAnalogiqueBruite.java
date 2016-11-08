@@ -2,7 +2,9 @@ package transmetteurs;
 
 import javax.rmi.CORBA.Util;
 
-import canaux.CanalTrajetsMultiples;
+import Utils.GenerateurBruitBlancGaussien;
+import Utils.RetardateurSignal;
+import Utils.AdditionneurSignaux;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
@@ -74,22 +76,22 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 		// TODO Auto-generated method stub
 		
 		float puissanceBruit = calculPuissanceBruit(informationRecue, snrDB);
-		BruitBlancGaussien generateurBruit; 
+		GenerateurBruitBlancGaussien generateurBruit; 
 		
 		if (seed == 0)
-			generateurBruit = new BruitBlancGaussien(puissanceBruit);
+			generateurBruit = new GenerateurBruitBlancGaussien(puissanceBruit);
 		else 
-			generateurBruit = new BruitBlancGaussien(puissanceBruit, seed);
+			generateurBruit = new GenerateurBruitBlancGaussien(puissanceBruit, seed);
 		
-		Information<Float> bruit = generateurBruit.generateurBruitBG(informationRecue.nbElements());
+		Information<Float> bruit = generateurBruit.getBruitBlancGaussien(informationRecue.nbElements());
 		
 		if(hasdelay) {
-			Information<Float> signalRetarde;
-			signalRetarde = Utils.enableTrajetMultiple(informationRecue, retard, attenuation);
-			informationEmise = Utils.additionnerSignaux(signalRetarde, bruit); 
+			Information<Float> signalRetarde = RetardateurSignal.getSignalRetardee(informationRecue, retard, attenuation);
+			Information<Float> signalPlusRetard = AdditionneurSignaux.additionnerSignaux(informationRecue, signalRetarde);
+			informationEmise = AdditionneurSignaux.additionnerSignaux(signalPlusRetard, bruit); 
 		}
 		else {
-		informationEmise = Utils.additionnerSignaux(informationRecue, bruit);
+		informationEmise = AdditionneurSignaux.additionnerSignaux(informationRecue, bruit);
 		}
 		
 		for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
