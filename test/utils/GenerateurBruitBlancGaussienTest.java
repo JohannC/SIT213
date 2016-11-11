@@ -1,15 +1,16 @@
-package transmetteur;
+package utils;
 
 import static org.hamcrest.CoreMatchers.is;
-import information.Information;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-import transmetteurs.BruitBlancGaussien;
+import information.Information;
+import utils.GenerateurBruitBlancGaussien;
 
-public class BruitBlancGaussienTest {
+
+public class GenerateurBruitBlancGaussienTest {
 	
 	private static final int SEED = 2;
 
@@ -26,9 +27,9 @@ public class BruitBlancGaussienTest {
 	@Test
 	public void nombreElementsTest() {
 		infoTestBruitBG = new Information<Float>();
-		BruitBlancGaussien bruitBG = new BruitBlancGaussien(PUISSANCE_BRUIT, SEED);
+		GenerateurBruitBlancGaussien bruitBG = new GenerateurBruitBlancGaussien(PUISSANCE_BRUIT, SEED);
 		
-		infoTestBruitBG = bruitBG.generateurBruitBG(NB_ECH_BRUIT);
+		infoTestBruitBG = bruitBG.getBruitBlancGaussien(NB_ECH_BRUIT);
 		
 		collector.checkThat(infoTestBruitBG.nbElements(), is(NB_ECH_BRUIT));
 		

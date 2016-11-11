@@ -1,4 +1,4 @@
-package calcul;
+package utils;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-public class ConvolutionTest {
+public class FiltreAdapteTest {
 
 	private static final int NBECH = 30;
 

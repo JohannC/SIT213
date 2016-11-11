@@ -1,7 +1,8 @@
-package canaux;
+package utils;
 
 import static org.hamcrest.CoreMatchers.is;
 import information.Information;
+import utils.RetardateurSignal;
 
 import java.util.Random;
 
@@ -10,7 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-public class CanalTrajetsMultiplesTest {
+public class RetardateurSignalTest {
 	
 	private static final int NBECH = 60;
 	
@@ -50,8 +51,8 @@ public class CanalTrajetsMultiplesTest {
 	@Test
 	public void inforRatardeeCorrectTest() {
 		
-		CanalTrajetsMultiples canal = new CanalTrajetsMultiples(information, NBECH, ATTENUATION);
-		collector.checkThat(canal.monInfoRetardee(), is(informationTestRetard));
+		Information<Float> retard = RetardateurSignal.getSignalRetardee(information, NBECH, ATTENUATION);
+		collector.checkThat(retard, is(informationTestRetard));
 	}
 
 }
