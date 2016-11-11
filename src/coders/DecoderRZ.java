@@ -34,7 +34,7 @@ public class DecoderRZ extends Decoder {
 		Information<Boolean> signalRZ = new Information<Boolean>();
 		float seuil = calculSeuil(msg);
 		int i = 0;
-		while (i < msg.nbElements()) {
+		while ((i+nbEchantillon) < msg.nbElements()) {
 			float moyenne = 0.0f;
 			float somme = 0.0f;
 			int debut = nbEchantillon / 3;
