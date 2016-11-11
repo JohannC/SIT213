@@ -13,8 +13,23 @@ public class AdditionneurSignaux {
 	
 	public static Information<Float> additionnerSignaux(Information<Float> signal1, Information<Float> signal2) {
 		Information<Float> signal = new Information<Float> ();
-		for (int i = 0 ; i < signal1.nbElements() ; i++)
-			signal.add(signal1.iemeElement(i) + signal2.iemeElement(i));
+		int tailleSignal1 = signal1.nbElements();
+		int tailleSignal2 =signal2.nbElements();
+		int length;
+		if(tailleSignal1 < tailleSignal2){
+			length = tailleSignal2;
+		}
+		else {
+			length = tailleSignal1;
+		}
+		for (int i = 0 ; i < length ; i++){
+			if(i < tailleSignal1 && i < tailleSignal2)
+				signal.add(signal1.iemeElement(i) + signal2.iemeElement(i));
+			else if(i < tailleSignal1 && i >= tailleSignal2)
+				signal.add(signal1.iemeElement(i));
+			else
+				signal.add(signal2.iemeElement(i));
+		}
 		return signal;
 	}
 }
