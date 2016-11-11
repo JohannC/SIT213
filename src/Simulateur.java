@@ -7,6 +7,8 @@ import information.Information;
 import sources.Source;
 import sources.SourceAleatoire;
 import sources.SourceFixe;
+import transducteurs.TransducteurEmission;
+import transducteurs.TransducteurReception;
 import transmetteurs.Emetteur;
 import transmetteurs.Recepteur;
 import transmetteurs.Transmetteur;
@@ -35,6 +37,8 @@ public class Simulateur {
 	private static final String nomSondeRecepteur = "recepteur";
 	private static final int nbPixelSondeRecepteur = 50;
 	private static final String nomSondeTransmetteurAnalogique = "Transmetteur Analogique";
+	private static final String nomSondeEmission = "transducteur Emission";
+	private static final String nomSondeReception = "transducteur Reception";
 	private static int DEFAULT_NB_ECHANTILLON = 30;
 	private static float DEFAULT_MIN = 0.0f;
 	private static float DEFAULT_MAX = 1.0f;
@@ -72,6 +76,14 @@ public class Simulateur {
 	 * le composant Transmetteur parfait logique de la chaine de transmission
 	 */
 	private Transmetteur<Boolean, Boolean> transmetteurLogique = null;
+	/**
+	 * Le transducteur émission de la chaine
+	 */
+	private Transmetteur<Boolean, Boolean> codeur = null;
+	/**
+	 * Le transducteur réception de la chaine
+	 */
+	private Transmetteur<Boolean, Boolean> decodeur = null;
 	/** le composant Destination de la chaine de transmission */
 	private Destination<Boolean> destination = null;
 	/** le message a transmettre si celui-ci est booleen **/
@@ -112,6 +124,10 @@ public class Simulateur {
 
 	/** Indique si on a un trajet multiple **/
 	private boolean trajetsMultiples = false;
+	/**
+	 * Indique l'utilisation d'un transducteur
+	 */
+	private boolean useTransducteur = false;
 
 	/**
 	 * Le constructeur de Simulateur construit une chaîne de transmission
@@ -173,9 +189,11 @@ public class Simulateur {
 			if (trajetsMultiples) {
 				if (hasSNR) {
 					if (aleatoireAvecGerme) {
-						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed, decalageTemporel, amplitudeRelative);
+						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed, decalageTemporel,
+								amplitudeRelative);
 					} else {
-						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, decalageTemporel, amplitudeRelative);
+						transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, decalageTemporel,
+								amplitudeRelative);
 					}
 				} else {
 					transmetteurAnalogique = new TransmetteurAnalogiqueParfait(decalageTemporel, amplitudeRelative);
@@ -183,10 +201,23 @@ public class Simulateur {
 			}
 			emetteur = new Emetteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
 			recepteur = new Recepteur(formeSignal, amplitudeMinimale, amplitudeMaximale, nombreEchantillon);
-			source.connecter(emetteur);
-			emetteur.connecter(transmetteurAnalogique);
-			transmetteurAnalogique.connecter(recepteur);
-			recepteur.connecter(destination);
+
+			if (useTransducteur) {
+				codeur = new TransducteurEmission();
+				decodeur = new TransducteurReception();
+				source.connecter(codeur);
+				codeur.connecter(emetteur);
+				emetteur.connecter(transmetteurAnalogique);
+				transmetteurAnalogique.connecter(recepteur);
+				recepteur.connecter(decodeur);
+				decodeur.connecter(destination);
+			} else {
+				source.connecter(emetteur);
+				emetteur.connecter(transmetteurAnalogique);
+				transmetteurAnalogique.connecter(recepteur);
+				recepteur.connecter(destination);
+			}
+
 		} else {
 			transmetteurLogique = new TransmetteurParfait();
 			source.connecter(transmetteurLogique);
@@ -195,9 +226,15 @@ public class Simulateur {
 		if (affichage) {
 			if (signalAnalogique) {
 				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
+				if (useTransducteur) {
+					codeur.connecter(new SondeLogique(nomSondeEmission, nbPixelSondeSource));
+				}
 				emetteur.connecter(new SondeAnalogique(nomSondeEmetteurAnalogique));
 				transmetteurAnalogique.connecter(new SondeAnalogique(nomSondeTransmetteurAnalogique));
 				recepteur.connecter(new SondeLogique(nomSondeRecepteur, nbPixelSondeRecepteur));
+				if(useTransducteur){
+					decodeur.connecter(new SondeLogique(nomSondeReception, nbPixelSondeRecepteur));
+				}
 			} else {
 				source.connecter(new SondeLogique(nomSondeSource, nbPixelSondeSource));
 				transmetteurLogique.connecter(new SondeLogique(nomSondeTransmetteur, nbPixelSondeTransmetteur));
@@ -304,17 +341,21 @@ public class Simulateur {
 				if (args[i + 1].matches("^\\s*-?[0-9]{1,10}\\s*$") && args[i + 2].matches("^([+-]?\\d*\\.?\\d*)$")) {
 					int decalageTemporelValue = new Integer(args[i + 1]).intValue();
 					float amplitudeRelativeValue = new Float(args[i + 2]).floatValue();
-					if(amplitudeRelativeValue < 0.0 || amplitudeRelativeValue>1.0){
-						throw new ArgumentsException("Valeur parametre -ti invalide, l'attenuation du retard doit �tre compris entre 0 et 1");
+					if (amplitudeRelativeValue < 0.0 || amplitudeRelativeValue > 1.0) {
+						throw new ArgumentsException(
+								"Valeur parametre -ti invalide, l'attenuation du retard doit etre compris entre 0 et 1");
 					}
 					decalageTemporel.add(decalageTemporelValue);
 					amplitudeRelative.add(amplitudeRelativeValue);
 					signalAnalogique = true;
 					trajetsMultiples = true;
 					i += 2;
-				}
-				else
-					throw new ArgumentsException("Valeur(s) parametre(s) -ti invalide(s) : " + args[i + 1] + " " + args[i + 2]);
+				} else
+					throw new ArgumentsException(
+							"Valeur(s) parametre(s) -ti invalide(s) : " + args[i + 1] + " " + args[i + 2]);
+			} else if (args[i].matches("-transducteur")) {
+				i++;
+				useTransducteur = true;
 			}
 
 			else
