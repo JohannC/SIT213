@@ -388,4 +388,10 @@ public class Simulateur {
 			System.exit(-2);
 		}
 	}
+	
+	public Information<Float> getSignalRecepteur(){
+		Information <Float> list;
+		list = recepteur.getInformationRecue();
+		return list;
+	}
 }
