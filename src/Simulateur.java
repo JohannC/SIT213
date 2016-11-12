@@ -354,7 +354,6 @@ public class Simulateur {
 					throw new ArgumentsException(
 							"Valeur(s) parametre(s) -ti invalide(s) : " + args[i + 1] + " " + args[i + 2]);
 			} else if (args[i].matches("-transducteur")) {
-				i++;
 				useTransducteur = true;
 			}
 

@@ -34,7 +34,7 @@ public class DecoderNRZT extends Decoder {
 	public Information<Boolean> decode(Information<Float> msg) {
 		Information<Boolean> signalNRZT = new Information<Boolean>();
 		float seuil = calculSeuil(msg);
-		for (int i = 0; (i+nbEchantillon) < msg.nbElements(); i += nbEchantillon) {
+		for (int i = 0; (i+nbEchantillon) <= msg.nbElements(); i += nbEchantillon) {
 			float moyenne = 0.0f;
 			float somme = 0.0f;
 			int t1 = nbEchantillon / 3;
