@@ -66,7 +66,7 @@ public class EncoderNRZT extends Encoder {
 		int t1 = nbEchantillon / 3;
 		int t3 = t1;
 		int t2 = nbEchantillon - t1 - t3;
-		float deltaAmplitude = max - min;
+		float deltaAmplitude = Math.abs(max - min);;
 		if (bit == true) {// bit � 1
 			if (precedentBit == false) {// Evite d'avoir
 				for (int i = 0; i < t1; i++) {
