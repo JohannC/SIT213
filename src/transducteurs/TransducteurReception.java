@@ -24,6 +24,9 @@ public class TransducteurReception extends Transmetteur<Boolean, Boolean> {
 	private void codageDeCanal() {
 		Information<Boolean> info = new Information<Boolean>();
 		for(int i = 0 ; i < informationRecue.nbElements() ; i += 3) {
+			if(i+3 > informationRecue.nbElements()){
+				break;
+			}
 			if(informationRecue.iemeElement(i) == false && informationRecue.iemeElement(i+1)== false && informationRecue.iemeElement(i+2)== false ) {
 				info.add(false);
 			}
